@@ -1,0 +1,19 @@
+language: csharp
+solution: Bob.FilesTransfert.sln
+notifications:
+    email:
+        #recipients:
+            #- blanquet.bertrand@gmail.com
+                on_success: always
+                on_failure: always
+before_install:
+  #- sudo apt-get install nunit-console
+install:
+  - nuget restore Bob.FilesTransfert.sln
+  #- nuget install NUnit.Runners -Version 3.8.0 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release Bob.Travis.sln
+after_script:
+  #- nunit-console Bob.Travis.Test/bin/Release/Bob.Travis.Test.dll
+  #- nunit-console Bob.Travis.Integration/bin/Release/Bob.Travis.Integration.dll
+  #- make coverage
