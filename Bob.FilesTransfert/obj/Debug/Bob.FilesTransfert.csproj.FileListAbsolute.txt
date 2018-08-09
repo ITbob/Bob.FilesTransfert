@@ -1,0 +1,9 @@
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\bin\Debug\Bob.FileTransferts.exe.config
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\bin\Debug\Bob.FileTransferts.exe
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\bin\Debug\Bob.FileTransferts.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\obj\Debug\Bob.FilesTransfert.csprojResolveAssemblyReference.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\obj\Debug\Bob.Transferts.Properties.Resources.resources
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\obj\Debug\Bob.FilesTransfert.csproj.GenerateResource.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\obj\Debug\Bob.FilesTransfert.csproj.CoreCompileInputs.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\obj\Debug\Bob.FileTransferts.exe
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert\obj\Debug\Bob.FileTransferts.pdb

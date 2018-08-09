@@ -1,0 +1,12 @@
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\Bob.FilesTransfert.Packet.Test.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\Bob.FilesTransfert.Packet.Test.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\Bob.FilesTransfet.PacketHandler.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\nunit.framework.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\Bob.FilesTransfet.PacketHandler.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\nunit.framework.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\bin\Debug\nunit.framework.xml
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\obj\Debug\Bob.FilesTransfert.Packet.Test.csprojResolveAssemblyReference.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\obj\Debug\Bob.FilesTransfert.Packet.Test.csproj.CoreCompileInputs.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\obj\Debug\Bob.FilesTransfert.Packet.Test.csproj.CopyComplete
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\obj\Debug\Bob.FilesTransfert.Packet.Test.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Packet.Test\obj\Debug\Bob.FilesTransfert.Packet.Test.pdb

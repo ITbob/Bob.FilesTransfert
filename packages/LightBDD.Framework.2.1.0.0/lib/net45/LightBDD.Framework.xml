@@ -1,0 +1,1265 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LightBDD.Framework</name>
+    </assembly>
+    <members>
+        <member name="T:LightBDD.Framework.FeatureDescriptionAttribute">
+             <summary>
+             Feature description attribute that can be applied on feature test class.
+             May be used to enrich feature class with description like "In order to... As a... I want to..."
+             or similar, that would be used by progress notifier and would be included in summary.
+            
+             If given implementation supports alternative description attributes, and both are applied on class, this one would be used.
+             </summary>
+        </member>
+        <member name="P:LightBDD.Framework.FeatureDescriptionAttribute.Description">
+            <summary>
+            Feature description.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.FeatureDescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Constructor allowing to associate description.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.IBddRunner`1">
+            <summary>
+            The base runner interface describing runner that can execute scenarios within specified context.
+            See also: <seealso cref="T:LightBDD.Framework.IBddRunner"/>.
+            </summary>
+            <typeparam name="TContext">The context type that would be used in scenario execution.</typeparam>
+        </member>
+        <member name="T:LightBDD.Framework.IBddRunner">
+            <summary>
+            Main LightBDD runner interface that should be used in all LightBDD tests.
+            The interface describes the runner with no context - please browse "LightBDD.Framework.Scenarios.Contextual" namespace for contextual runners extension methods.
+            <param>The runner instance can be obtained by installing package from "LightBDD.Integration.*" group and deriving test class from <c>FeatureFixture</c> class offered by integration package.</param>
+            <param>The "LightBDD.Framework.Scenarios.*" namespaces offers a set of extension methods to execute tests with this runner.</param>
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.LabelAttribute">
+            <summary>
+            Label attribute that can be applied on feature test class or scenario method.
+            May be used to link feature/scenario with external tools by storing ticket number.
+            Multiple labels per item are supported.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.LabelAttribute.Label">
+            <summary>
+            Specified label.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.LabelAttribute.#ctor(System.String)">
+            <summary>
+            Constructor allowing to associate label text.
+            </summary>
+            <param name="label">Label.</param>
+        </member>
+        <member name="T:LightBDD.Framework.NoContext">
+            <summary>
+            Class used to indicate that IBddRunner will execute scenarios without any additional context.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.ScenarioCategoryAttribute">
+             <summary>
+             Scenario category attribute that can be applied on scenario test method.
+             May be used to associate scenarios with specific categories.
+             It is possible to apply multiple ScenarioCategory attributes on given scenario.
+            
+             If given implementation supports alternative category attributes, and both are applied on scenario method, all of them would be used.
+             </summary>
+        </member>
+        <member name="P:LightBDD.Framework.ScenarioCategoryAttribute.Category">
+            <summary>
+            Scenario category name.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.ScenarioCategoryAttribute.#ctor(System.String)">
+            <summary>
+            Constructor accepting category name.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.StepExecution">
+            <summary>
+            Step execution class, allowing to control step execution from method executing step.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.StepExecution.Current">
+            <summary>
+            Returns current step execution instance.
+            Reference by <see cref="P:LightBDD.Framework.StepExecution.Current"/> property enables LightBDD extension packages to add functionality to <see cref="T:LightBDD.Framework.StepExecution"/> with extension methods.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.StepExecution.Bypass(System.String)">
+            <summary>
+            Bypasses currently executed step and continues execution of current scenario, allowing to execute all remaining steps.
+            The step code located after <c>StepExecution.Current.Bypass()</c> call would not be executed.
+            <para>
+            The status of bypassed step would be <see cref="F:LightBDD.Core.Results.ExecutionStatus.Bypassed"/> and the overall status of scenario would be <see cref="F:LightBDD.Core.Results.ExecutionStatus.Bypassed"/>,
+            unless any further step is failed or ignored.
+            </para>
+            <para>Scenarios with <see cref="F:LightBDD.Core.Results.ExecutionStatus.Bypassed"/> status are recognized as successful tests in underlying test framework.</para>
+            
+            <para>The <paramref name="reason"/> argument would be used as step <see cref="P:LightBDD.Core.Results.IStepResult.StatusDetails"/>, and it would be aggregated in overall scenario <see cref="P:LightBDD.Core.Results.IScenarioResult.StatusDetails"/> as well.</para>
+            
+            The <see cref="M:LightBDD.Framework.StepExecution.Bypass(System.String)"/>() method could be used in situations when:
+            <list type="bullet">
+            <item><description>It is not possible to implement given step at the moment (no required API is implemented yet), but all other steps are precise enough to prove that scenario is successful, i.e. situation when scenario checks overall and detailed cost of product and one of price component cannot be retrieved.</description></item>
+            <item><description>Step implementation does not exists, but it is possible to simulate it, so further steps can be executed, i.e. end-to-end tests, where the middle component does not exist yet.</description></item>
+            <item><description>The required API is not exposed yet, but it is possible to implement a workaround like direct data insert to database.</description></item>
+            </list>
+            </summary>
+            <param name="reason">Bypass reason.</param>
+            <exception cref="T:LightBDD.Core.Execution.StepBypassException">Bypass exception used to control scenario execution.</exception>
+        </member>
+        <member name="T:LightBDD.Framework.Commenting.StepExecutionExtensions">
+            <summary>
+            Extension class for <see cref="T:LightBDD.Framework.StepExecution"/> allowing to comment currently running steps.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Commenting.StepExecutionExtensions.Comment(LightBDD.Framework.StepExecution,System.String)">
+            <summary>
+            Comments currently executed step with a <paramref name="comment"/> text.
+            The comment would be included in progress notification, as well as in execution reports.
+            <para>This feature has to be enabled in <see cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/> via <see cref="M:LightBDD.Framework.Commenting.Configuration.CommentingConfigurationExtensions.EnableStepCommenting(LightBDD.Core.Configuration.ExecutionExtensionsConfiguration)"/>() prior to usage.</para>
+            </summary>
+            <param name="execution">Current step execution instance.</param>
+            <param name="comment">Comment to add. If comment is <c>null</c> or empty, it will not be added.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Commenting.Configuration.CommentingConfigurationExtensions">
+            <summary>
+            Configuration class allowing to enable commenting feature in LightBDD.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Commenting.Configuration.CommentingConfigurationExtensions.EnableStepCommenting(LightBDD.Core.Configuration.ExecutionExtensionsConfiguration)">
+            <summary>
+            Enables configuration feature in provided <paramref name="configuration"/> object.
+            As this feature depends on <see cref="T:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext"/>, it enables it as well with <see cref="M:LightBDD.Framework.ExecutionContext.Configuration.ScenarioExecutionContextConfigurationExtensions.EnableScenarioExecutionContext(LightBDD.Core.Configuration.ExecutionExtensionsConfiguration)"/>().
+            </summary>
+            <param name="configuration">Configuration object.</param>
+            <returns>Configuration object.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.ExecutionContext.AsyncLocalContext`1">
+            <summary>
+            Class offering async local storage
+            </summary>
+            <typeparam name="T">Stored value</typeparam>
+        </member>
+        <member name="P:LightBDD.Framework.ExecutionContext.AsyncLocalContext`1.Value">
+            <summary>
+            Allows to get and set value to store.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.ExecutionContext.IContextProperty">
+            <summary>
+            Marker interface describing execution context property.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext">
+            <summary>
+            Scenario execution context class allowing to store and retrieve scenario properties that would be available for all tasks executed within the scenario.
+            
+            <para>This feature has to be enabled in <see cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/> via <see cref="M:LightBDD.Framework.ExecutionContext.Configuration.ScenarioExecutionContextConfigurationExtensions.EnableScenarioExecutionContext(LightBDD.Core.Configuration.ExecutionExtensionsConfiguration)"/>() prior to usage.</para>
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext.Get``1">
+            <summary>
+            Provides property value of <typeparamref name="TProperty"/> type that is stored in scenario context.
+            If such property does not exists yet, a new instance will be registered in context and returned.
+            </summary>
+            <typeparam name="TProperty">Property type to retrieve.</typeparam>
+            <returns>Property object.</returns>
+        </member>
+        <member name="P:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext.Current">
+            <summary>
+            Returns current scenario execution context.
+            <exception cref="T:System.InvalidOperationException">Throws when <see cref="P:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext.Current"/> property is accessed from outside of scenario method or if <see cref="T:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext"/> feature is not enabled.</exception>
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.ExecutionContext.Configuration.ScenarioExecutionContextConfigurationExtensions">
+            <summary>
+            Configuration class allowing to enable <see cref="T:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext"/> feature in LightBDD.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.ExecutionContext.Configuration.ScenarioExecutionContextConfigurationExtensions.EnableScenarioExecutionContext(LightBDD.Core.Configuration.ExecutionExtensionsConfiguration)">
+            <summary>
+            Enables <see cref="T:LightBDD.Framework.ExecutionContext.ScenarioExecutionContext"/> feature in provided <paramref name="configuration"/> object.
+            </summary>
+            <param name="configuration">Configuration object.</param>
+            <returns>Configuration object.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Extensibility.BddRunnerExtensions">
+            <summary>
+            IBddRunner extensions.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Extensibility.BddRunnerExtensions.Integrate``1(LightBDD.Framework.IBddRunner{``0})">
+            <summary>
+            Method allowing to retrieve the <see cref="T:LightBDD.Core.Extensibility.IFeatureFixtureRunner"/> instance allowing to define and execute scenarios.
+            This method is dedicated for projects extending LightBDD with user friendly API for running scenarios - it should not be used directly by regular LightBDD users.
+            </summary>
+            <typeparam name="TContext">Bdd runner context type.</typeparam>
+            <param name="runner">Bdd runner.</param>
+            <returns>Instance of <see cref="T:LightBDD.Core.Extensibility.IFeatureFixtureRunner"/>.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Extensibility.BddRunnerExtensions.GetBddRunner(LightBDD.Core.Extensibility.IFeatureRunner,System.Object)">
+            <summary>
+            Method allowing to retrieve the <see cref="T:LightBDD.Framework.IBddRunner"/> instance from <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/>.
+            The <see cref="T:LightBDD.Framework.IBddRunner"/> is a main runner interface that should be used for executing LightBDD scenarios, while the interfaces coming from LightBDD.Core namespace should be used only in integration projects.
+            </summary>
+            <param name="featureRunner">Instance of <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/>.</param>
+            <param name="fixture">Feature fixture instance.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Framework.Formatting.DefaultNameFormatter">
+            <summary>
+            Default implementation of <see cref="T:LightBDD.Core.Formatting.INameFormatter"/> interface.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.DefaultNameFormatter.FormatName(System.String)">
+            <summary>
+            Formats name into readable text.
+            This method applies following replacements:<br/>
+            "__" -> ": "<br/>
+            "_s_" -> "'s "<br/>
+            "_" -> " "<br/>
+            </summary>
+            <param name="name">Name to format.</param>
+            <returns>Formatted text.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Formatting.FormatAttribute">
+            <summary>
+            Attribute allowing to define how step parameter value should be formatted.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.FormatAttribute.#ctor(System.String)">
+            <summary>
+            Constructor allowing to define how step parameter should be formatted.
+            The <paramref name="format"/> argument represents string.Format() format parameter, where <c>{0}</c> would be a passed parameter instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.FormatAttribute.Format(System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Formats given <paramref name="parameter"/> value using <paramref name="culture"/>.
+            </summary>
+            <param name="culture">Culture used in formatting.</param>
+            <param name="parameter">Parameter to format.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Framework.Formatting.FormatBooleanAttribute">
+            <summary>
+            Attribute allowing to define formatting rules for step parameter of boolean type.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.FormatBooleanAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Constructor allowing to associate string constants that would be used for <c>true</c> and <c>false</c> value.
+            </summary>
+            <param name="trueValue">String constant used for <c>true</c> value.</param>
+            <param name="falseValue">String constant used for <c>false</c> value.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.FormatBooleanAttribute.Format(System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Formats given <paramref name="parameter"/> value using <paramref name="culture"/>.
+            </summary>
+            <param name="culture">Culture used in formatting.</param>
+            <param name="parameter">Parameter to format.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Framework.Formatting.FormatCollectionAttribute">
+            <summary>
+            Attribute allowing to define formatting rules for method parameter of type implementing <see cref="T:System.Collections.IEnumerable"/> interface.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.FormatCollectionAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Constructor allowing to specify separator and value format.
+            </summary>
+            <param name="separator">Value separator. If <c>null</c>, <c>", "</c> will be used.</param>
+            <param name="valueFormat">Value format. If <c>null</c>, <c>"{0}"</c> will be used.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.FormatCollectionAttribute.Format(System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Formats given <paramref name="parameter"/> value using <paramref name="culture"/>.
+            </summary>
+            <param name="culture">Culture used in formatting.</param>
+            <param name="parameter">Parameter to format.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Framework.Formatting.Configuration.FormattingConfigurationExtensions">
+            <summary>
+            Configuration class allowing to retrieve <see cref="M:LightBDD.Framework.Formatting.Configuration.FormattingConfigurationExtensions.NameFormatterConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)"/> for further customizations.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.Configuration.FormattingConfigurationExtensions.NameFormatterConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Retrieves <see cref="M:LightBDD.Framework.Formatting.Configuration.FormattingConfigurationExtensions.NameFormatterConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)"/> from <paramref name="configuration"/> for further customizations.
+            </summary>
+            <param name="configuration">Configuration object.</param>
+            <returns>Configuration object.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Formatting.Configuration.NameFormatterConfiguration">
+            <summary>
+            Configuration class allowing to customize name formatting behavior.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Formatting.Configuration.NameFormatterConfiguration.Formatter">
+            <summary>
+            Returns formatter.
+            By default it is initialized with <see cref="T:LightBDD.Framework.Formatting.DefaultNameFormatter"/> instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Formatting.Configuration.NameFormatterConfiguration.UpdateFormatter(LightBDD.Core.Formatting.INameFormatter)">
+            <summary>
+            Updates <see cref="P:LightBDD.Framework.Formatting.Configuration.NameFormatterConfiguration.Formatter"/> with new value.
+            </summary>
+            <param name="formatter">New formatter to set.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="formatter"/> is null.</exception>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.DefaultProgressNotifier">
+            <summary>
+            The default implementation of <see cref="T:LightBDD.Core.Notification.IScenarioProgressNotifier"/> and <see cref="T:LightBDD.Core.Notification.IFeatureProgressNotifier"/> which renders the notification text and delegates to provided notification actions configured in constructor.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.#ctor(System.Action{System.String}[])">
+            <summary>
+            Initializes the notifier with <paramref name="onNotify"/> actions that will be used to delegate the rendered notification text.
+            </summary>
+            <param name="onNotify"></param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyScenarioStart(LightBDD.Core.Metadata.IScenarioInfo)">
+            <summary>
+            Notifies that scenario has started.
+            </summary>
+            <param name="scenario">Scenario info.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyScenarioFinished(LightBDD.Core.Results.IScenarioResult)">
+            <summary>
+            Notifies that scenario has finished.
+            </summary>
+            <param name="scenario">Scenario result.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyStepStart(LightBDD.Core.Metadata.IStepInfo)">
+            <summary>
+            Notifies that step has started.
+            </summary>
+            <param name="step">Step info.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyStepFinished(LightBDD.Core.Results.IStepResult)">
+            <summary>
+            Notifies that step has finished.
+            </summary>
+            <param name="step">Step result.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyStepComment(LightBDD.Core.Metadata.IStepInfo,System.String)">
+            <summary>
+            Notifies that step has been commented.
+            </summary>
+            <param name="step">Step info.</param>
+            <param name="comment">Comment.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyFeatureStart(LightBDD.Core.Metadata.IFeatureInfo)">
+            <summary>
+            Notifies that feature has started.
+            </summary>
+            <param name="feature">Feature info.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DefaultProgressNotifier.NotifyFeatureFinished(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Notifies that feature has finished.
+            </summary>
+            <param name="feature">Feature result.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.DelegatingFeatureProgressNotifier">
+            <summary>
+            Feature progress notifier allowing to delegate notification to zero or more notifiers.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingFeatureProgressNotifier.#ctor(LightBDD.Core.Notification.IFeatureProgressNotifier[])">
+            <summary>
+            Constructor configuring notifier to delegate all the notifications to provided <paramref name="notifiers"/>.
+            </summary>
+            <param name="notifiers">Notifiers to delegate notifications to.</param>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="notifiers"/> is null.</exception>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingFeatureProgressNotifier.NotifyFeatureStart(LightBDD.Core.Metadata.IFeatureInfo)">
+            <summary>
+            Notifies that feature has started.
+            </summary>
+            <param name="feature">Feature info.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingFeatureProgressNotifier.NotifyFeatureFinished(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Notifies that feature has finished.
+            </summary>
+            <param name="feature">Feature result.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier">
+            <summary>
+            Scenario progress notifier allowing to delegate notification to zero or more notifiers.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier.#ctor(LightBDD.Core.Notification.IScenarioProgressNotifier[])">
+            <summary>
+            Constructor configuring notifier to delegate all the notifications to provided <paramref name="notifiers"/>.
+            </summary>
+            <param name="notifiers">Notifiers to delegate notifications to.</param>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="notifiers"/> is null.</exception>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier.NotifyScenarioStart(LightBDD.Core.Metadata.IScenarioInfo)">
+            <summary>
+            Notifies that scenario has started.
+            </summary>
+            <param name="scenario">Scenario info.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier.NotifyScenarioFinished(LightBDD.Core.Results.IScenarioResult)">
+            <summary>
+            Notifies that scenario has finished.
+            </summary>
+            <param name="scenario">Scenario result.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier.NotifyStepStart(LightBDD.Core.Metadata.IStepInfo)">
+            <summary>
+            Notifies that step has started.
+            </summary>
+            <param name="step">Step info.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier.NotifyStepFinished(LightBDD.Core.Results.IStepResult)">
+            <summary>
+            Notifies that step has finished.
+            </summary>
+            <param name="step">Step result.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.DelegatingScenarioProgressNotifier.NotifyStepComment(LightBDD.Core.Metadata.IStepInfo,System.String)">
+            <summary>
+            Notifies that step has been commented.
+            </summary>
+            <param name="step">Step info.</param>
+            <param name="comment">Comment.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.NoProgressNotifier">
+            <summary>
+            Progress notifier implementation that does nothing when called.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Notification.NoProgressNotifier.Default">
+            <summary>
+            Returns default instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyFeatureStart(LightBDD.Core.Metadata.IFeatureInfo)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyFeatureFinished(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyScenarioStart(LightBDD.Core.Metadata.IScenarioInfo)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyScenarioFinished(LightBDD.Core.Results.IScenarioResult)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyStepStart(LightBDD.Core.Metadata.IStepInfo)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyStepFinished(LightBDD.Core.Results.IStepResult)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.NoProgressNotifier.NotifyStepComment(LightBDD.Core.Metadata.IStepInfo,System.String)">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.ParallelProgressNotifierProvider">
+            <summary>
+            Class providing implementations of <see cref="T:LightBDD.Core.Notification.IFeatureProgressNotifier"/> and <see cref="T:LightBDD.Core.Notification.IScenarioProgressNotifier"/> interfaces.
+            The implementations are designed to provide notifications that would be still understandable when scenarios are executed in parallel.
+            Each notification entry is prefixed with text showing total number of processed, failed and currently running scenarios as well as scenario number the message is notified for.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Notification.ParallelProgressNotifierProvider.Default">
+            <summary>
+            Returns default instance of provider.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.ParallelProgressNotifierProvider.#ctor">
+            <summary>
+            Default constructor.
+            The class should not be instantiated directly, but rather <see cref="P:LightBDD.Framework.Notification.ParallelProgressNotifierProvider.Default"/> property should be used to get provider instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.ParallelProgressNotifierProvider.CreateFeatureProgressNotifier(System.Action{System.String}[])">
+            <summary>
+            Creates <see cref="T:LightBDD.Core.Notification.IFeatureProgressNotifier"/> instance which would call <paramref name="onNotify"/> actions with formatted notifications.
+            The created notifier does nothing with formatted notifications that is why <paramref name="onNotify"/> should contain at least 1 action in order to get notifications working.
+            </summary>
+            <param name="onNotify">Actions that would be called with formatted notifications.</param>
+            <returns><see cref="T:LightBDD.Core.Notification.IFeatureProgressNotifier"/> instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="onNotify"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.ParallelProgressNotifierProvider.CreateScenarioProgressNotifier(System.Action{System.String}[])">
+            <summary>
+            Creates <see cref="T:LightBDD.Core.Notification.IScenarioProgressNotifier"/> instance which would call <paramref name="onNotify"/> actions with formatted notifications.
+            The created notifier does nothing with formatted notifications that is why <paramref name="onNotify"/> should contain at least 1 action in order to get notifications working.
+            </summary>
+            <param name="onNotify">Actions that would be called with formatted notifications.</param>
+            <returns><see cref="T:LightBDD.Core.Notification.IScenarioProgressNotifier"/> instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="onNotify"/> is <c>null</c>.</exception>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.Configuration.FeatureProgressNotifierConfiguration">
+            <summary>
+            Configuration class allowing to customize feature progress notification behavior.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Notification.Configuration.FeatureProgressNotifierConfiguration.Notifier">
+            <summary>
+            Returns feature progress notifier.
+            By default it is initialized with <see cref="P:LightBDD.Framework.Notification.NoProgressNotifier.Default"/> instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.Configuration.FeatureProgressNotifierConfiguration.UpdateNotifier(LightBDD.Core.Notification.IFeatureProgressNotifier)">
+            <summary>
+            Updates <see cref="P:LightBDD.Framework.Notification.Configuration.FeatureProgressNotifierConfiguration.Notifier"/> with new value.
+            </summary>
+            <param name="notifier">New notifier to set.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="notifier"/> is null.</exception>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.Configuration.NotificationConfigurationExtensions">
+            <summary>
+            Configuration class allowing to retrieve progress notification configurations for further customizations.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.Configuration.NotificationConfigurationExtensions.FeatureProgressNotifierConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Retrieves <see cref="M:LightBDD.Framework.Notification.Configuration.NotificationConfigurationExtensions.FeatureProgressNotifierConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)"/> from <paramref name="configuration"/> for further customizations.
+            </summary>
+            <param name="configuration">Configuration object.</param>
+            <returns>Configuration object.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.Configuration.NotificationConfigurationExtensions.ScenarioProgressNotifierConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Retrieves <see cref="M:LightBDD.Framework.Notification.Configuration.NotificationConfigurationExtensions.ScenarioProgressNotifierConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)"/> from <paramref name="configuration"/> for further customizations.
+            </summary>
+            <param name="configuration">Configuration object.</param>
+            <returns>Configuration object.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Notification.Configuration.ScenarioProgressNotifierConfiguration">
+            <summary>
+            Configuration class allowing to customize scenario progress notification behavior.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Notification.Configuration.ScenarioProgressNotifierConfiguration.NotifierProvider">
+            <summary>
+            Returns function providing scenario progress notifier, where function parameter is feature fixture class instance.
+            By default it is initialized with function returning <see cref="P:LightBDD.Framework.Notification.NoProgressNotifier.Default"/> instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.Configuration.ScenarioProgressNotifierConfiguration.UpdateNotifierProvider(System.Func{LightBDD.Core.Notification.IScenarioProgressNotifier})">
+            <summary>
+            Updates <see cref="P:LightBDD.Framework.Notification.Configuration.ScenarioProgressNotifierConfiguration.NotifierProvider"/> with new value.
+            </summary>
+            <param name="notifierProvider">New provider to set.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="notifierProvider"/> is null.</exception>
+        </member>
+        <member name="M:LightBDD.Framework.Notification.Configuration.ScenarioProgressNotifierConfiguration.UpdateNotifierProvider``1(System.Func{``0,LightBDD.Core.Notification.IScenarioProgressNotifier})">
+            <summary>
+            Updates <see cref="P:LightBDD.Framework.Notification.Configuration.ScenarioProgressNotifierConfiguration.NotifierProvider"/> with new value.
+            </summary>
+            <param name="notifierProvider">New provider to set.</param>
+            <typeparam name="TFixture">Feature fixture type.</typeparam>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="notifierProvider"/> is null.</exception>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.ExecutionTimeSummary">
+            <summary>
+            Class providing execution time summary.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Start">
+            <summary>
+            Returns execution start.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.End">
+            <summary>
+            Returns execution end.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Duration">
+            <summary>
+            Returns real execution duration (End - Start)
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Aggregated">
+            <summary>
+            Returns aggregated execution duration.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Average">
+            <summary>
+            Returns average execution duration.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ExecutionTimeSummary.#ctor(System.DateTimeOffset,System.DateTimeOffset,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Constructor allowing to setup all properties.
+            </summary>
+            <param name="start">Start.</param>
+            <param name="end">End.</param>
+            <param name="aggregated">Aggregated.</param>
+            <param name="average">Average.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ExecutionTimeSummary.#ctor">
+            <summary>
+            Default constructor initializing <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Start"/> and <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.End"/> with <see cref="P:System.DateTimeOffset.UtcNow"/> and <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Average"/> and <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Aggregated"/> with <see cref="F:System.TimeSpan.Zero"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ExecutionTimeSummary.Calculate(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.ExecutionTime})">
+            <summary>
+            Calculates <see cref="T:LightBDD.Framework.Reporting.ExecutionTimeSummary"/> for all <see cref="T:LightBDD.Core.Results.ExecutionTime"/> instances provided in <paramref name="times"/> argument.
+            The <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Start"/> is set to the lowest <see cref="P:LightBDD.Core.Results.ExecutionTime.Start"/> value from provided <paramref name="times"/>.
+            The <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.End"/> is set to the highest <see cref="P:LightBDD.Core.Results.ExecutionTime.End"/> value from provided <paramref name="times"/>.
+            The <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Aggregated"/> is set to the sum of all <see cref="P:LightBDD.Core.Results.ExecutionTime.Duration"/> values from provided <paramref name="times"/>.
+            The <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Average"/> is set to the <see cref="P:LightBDD.Framework.Reporting.ExecutionTimeSummary.Aggregated"/> divided by number of values from provided <paramref name="times"/>.
+            </summary>
+            <param name="times">Times to calculate summary for.</param>
+            <returns><see cref="T:LightBDD.Framework.Reporting.ExecutionTimeSummary"/> object.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.FeatureReportExtensions">
+            <summary>
+            Helper methods to work on feature results
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.GetTestExecutionTimeSummary(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.IFeatureResult})">
+            <summary>
+            Returns execution summary for provided <paramref name="results"/>.
+            </summary>
+            <param name="results">Results to calculate execution summary for.</param>
+            <returns><see cref="T:LightBDD.Framework.Reporting.ExecutionTimeSummary"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.GetTestExecutionTimeSummary(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.IScenarioResult})">
+            <summary>
+            Returns execution summary for provided <paramref name="results"/>.
+            </summary>
+            <param name="results">Results to calculate execution summary for.</param>
+            <returns><see cref="T:LightBDD.Framework.Reporting.ExecutionTimeSummary"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountScenariosWithStatus(LightBDD.Core.Results.IFeatureResult,LightBDD.Core.Results.ExecutionStatus)">
+            <summary>
+            Counts scenarios that belongs to given feature and have given status.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountScenariosWithStatus(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.IFeatureResult},LightBDD.Core.Results.ExecutionStatus)">
+            <summary>
+            Counts all scenarios with given status.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountScenarios(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.IFeatureResult})">
+            <summary>
+            Counts all scenarios.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountSteps(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.IFeatureResult})">
+            <summary>
+            Counts all steps.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountSteps(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Counts all steps.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountStepsWithStatus(LightBDD.Core.Results.IFeatureResult,LightBDD.Core.Results.ExecutionStatus)">
+            <summary>
+            Counts all steps with given status.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountStepsWithStatus(LightBDD.Core.Results.IScenarioResult,LightBDD.Core.Results.ExecutionStatus)">
+            <summary>
+            Counts all steps with given status.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.FeatureReportExtensions.CountStepsWithStatus(System.Collections.Generic.IEnumerable{LightBDD.Core.Results.IFeatureResult},LightBDD.Core.Results.ExecutionStatus)">
+            <summary>
+            Counts all steps with given status.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.ReportFileWriter">
+            <summary>
+            Summary file writer class allows to save feature results by using associated result formatter and output path.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ReportFileWriter.Formatter">
+            <summary>
+            Returns configured formatter.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ReportFileWriter.OutputPath">
+            <summary>
+            Returns configured output path.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ReportFileWriter.FullOutputPath">
+            <summary>
+            Returns output path resolved to a full path.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportFileWriter.#ctor(LightBDD.Framework.Reporting.Formatters.IReportFormatter,System.String)">
+            <summary>
+            Constructor allowing to create ReportFileWriter with associated result formatter and output path.
+            Please note that full output path is being resolved at time when constructor is called, not when results are saved, so any relative paths will be resolved at the construction of this class.
+            </summary>
+            <param name="formatter">Report formatter.</param>
+            <param name="outputPath">Output path. If starts with <c>~</c>, it would be resolved to <see cref="!:AppContext.BaseDirectory"/>. It can contain string.Format() like parameters of {name:format} syntax.
+            This constructor uses default <see cref="T:LightBDD.Framework.Reporting.ReportPathFormatter"/> to format these parameters. See <see cref="M:LightBDD.Framework.Reporting.ReportPathFormatter.CreateDefault"/>() for more details on available parameter types.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportFileWriter.#ctor(LightBDD.Framework.Reporting.Formatters.IReportFormatter,System.String,LightBDD.Framework.Reporting.ReportPathFormatter)">
+            <summary>
+            Constructor allowing to create ReportFileWriter with associated result formatter, output path and path formatter.
+            Please note that full output path is being resolved at time when constructor is called, not when results are saved, so any relative paths will be resolved at the construction of this class.
+            </summary>
+            <param name="formatter">Report formatter.</param>
+            <param name="outputPath">Output path. If starts with <c>~</c>, it would be resolved to <see cref="!:AppContext.BaseDirectory"/>. It can contain string.Format() like parameters of {name:format} syntax.</param>
+            <param name="pathFormatter"><see cref="T:LightBDD.Framework.Reporting.ReportPathFormatter"/> instance used to format <paramref name="outputPath"/>.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportFileWriter.Save(LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Saves formatted feature <c>results</c> to file specified in constructor.
+            If output path refers to directory which does not exist, it will be created.
+            </summary>
+            <param name="results">Results to save.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.ReportFormattablePath">
+            <summary>
+            Report file formattable path.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Framework.Reporting.ReportFormattablePath.FormattablePath">
+            <summary>
+            Returns formattable path specified in constructor.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportFormattablePath.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Func{LightBDD.Core.Results.IFeatureResult[],System.Object}})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="formattablePath">Formattable path string with String.Format() syntax.</param>
+            <param name="parameterProviders">Parameter providing functions.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportFormattablePath.Resolve(LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Resolves path by applying all the formats and resolving to a full path.
+            </summary>
+            <param name="results">Feature results used in format.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.ReportPathFormatter">
+            <summary>
+            Summary file path formatter allowing to specify formattable paths with parameters like current date/time or time when test were executed.
+            Formatter accepts string.Format() like parameters of {name:format} syntax, where <c>name</c> is a parameter name while <c>format</c> is string.Format() parameter format string (it is always required).
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportPathFormatter.CreateDefault">
+            <summary>
+            Creates default <see cref="T:LightBDD.Framework.Reporting.ReportPathFormatter"/> that supports following format parameters:
+            <list type="bullet">
+            <item><description>CurrentDateTimeUtc - equivalent to DateTime.UtcNow (DateTime type)</description></item>
+            <item><description>CurrentDateTime - equivalent to DateTime.Now (DateTime type)</description></item>
+            <item><description>TestDateTimeUtc - utc date/time when test execution started (DateTime type)</description></item>
+            <item><description>TestDateTime - local date/time when test execution started (DateTime type)</description></item>
+            </list>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportPathFormatter.Add(System.String,System.Func{LightBDD.Core.Results.IFeatureResult[],System.Object})">
+            <summary>
+            Adds new format parameter.
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="parameterFunction">Parameter function</param>
+            <returns>Parameter object.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.ReportPathFormatter.ToFormattablePath(System.String)">
+            <summary>
+            Converts <paramref name="formattablePath"/> to <see cref="T:LightBDD.Framework.Reporting.ReportFormattablePath"/> by:
+            * parameterizing path with configured parameter functions,
+            * replacing starting '~' character with value of <see cref="!:AppContext.BaseDirectory"/>, if present,
+            * resolving to full path if path is relative.
+            </summary>
+            <param name="formattablePath">Formattable path string</param>
+            <returns>Formattable path.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Configuration.ReportConfigurationExtensions">
+            <summary>
+            Configuration class allowing to retrieve report writers configurations for further customizations.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportConfigurationExtensions.ReportWritersConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Retrieves <see cref="M:LightBDD.Framework.Reporting.Configuration.ReportConfigurationExtensions.ReportWritersConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)"/> from <paramref name="configuration"/> for further customizations.
+            </summary>
+            <param name="configuration">Configuration object.</param>
+            <returns>Configuration object.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Configuration.ReportFileWriterConfigurationExtensions">
+            <summary>
+            Extension class for <see cref="T:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration"/> simplifying configuration with <see cref="T:LightBDD.Framework.Reporting.ReportFileWriter"/> instances.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportFileWriterConfigurationExtensions.AddFileWriter``1(LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration,System.String)">
+            <summary>
+            Adds <see cref="T:LightBDD.Framework.Reporting.ReportFileWriter"/> instance configured to format report with <typeparamref name="TFormatter"/> and write it to <paramref name="outputPath"/>.
+            </summary>
+            <typeparam name="TFormatter">Type of report formatter.</typeparam>
+            <param name="configuration">Configuration.</param>
+            <param name="outputPath">Output path for the report.</param>
+            <returns>Configuration.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration">
+            <summary>
+            Configuration class allowing to customize report writers.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration.#ctor">
+            <summary>
+            Default constructor initializing configuration to generate <c>~\\Reports\\FeaturesReport.xml</c> and <c>~\\Reports\\FeaturesReport.html</c> reports.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration.Add(LightBDD.Core.Reporting.IReportWriter)">
+            <summary>
+            Adds <paramref name="writer"/> to report writers collection.
+            </summary>
+            <param name="writer">Writer to add.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="writer"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration.Remove(LightBDD.Core.Reporting.IReportWriter)">
+            <summary>
+            Removes specified, previously configured writer.
+            </summary>
+            <param name="writer">Writer instance to remove.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration.Clear">
+            <summary>
+            Removes all previously configured report writers.
+            </summary>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Configuration.ReportWritersConfiguration.GetEnumerator">
+            <summary>Returns an enumerator that iterates through the collection.</summary>
+            <returns>An enumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Formatters.HtmlReportFormatter">
+            <summary>
+            Formats feature results as HTML.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Formatters.HtmlReportFormatter.Format(System.IO.Stream,LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Formats provided feature results and writes to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">Stream to write formatted results to.</param>
+            <param name="features">Feature results to format.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Formatters.IReportFormatter">
+            <summary>
+            Report formatter interface.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Formatters.IReportFormatter.Format(System.IO.Stream,LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Formats provided feature results and writes to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">Stream to write formatted results to.</param>
+            <param name="features">Feature results to format.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Formatters.PlainTextReportFormatter">
+            <summary>
+            Formats feature results as plain text.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Formatters.PlainTextReportFormatter.Format(System.IO.Stream,LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Formats provided feature results and writes to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">Stream to write formatted results to.</param>
+            <param name="features">Feature results to format.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Reporting.Formatters.XmlReportFormatter">
+            <summary>
+            Formats feature results as XML.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Reporting.Formatters.XmlReportFormatter.Format(System.IO.Stream,LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Formats provided feature results and writes to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">Stream to write formatted results to.</param>
+            <param name="features">Feature results to format.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions">
+            <summary>
+            Extensions class allowing to use basic scenario syntax for running LightBDD tests.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions.RunScenario(LightBDD.Framework.IBddRunner,System.Action[])">
+            <summary>
+            Runs test scenario by executing given steps in specified order.<br/>
+            If given step throws, other are not executed.<br/>
+            Scenario name is determined from the method name in which <see cref="M:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions.RunScenario(LightBDD.Framework.IBddRunner,System.Action[])"/>() method is called.<br/>
+            Scenario labels are determined from <see cref="T:LightBDD.Framework.LabelAttribute"/> attributes applied on scenario method.<br/>
+            Step name is determined from corresponding action name.<br/>
+            Example usage:
+            <code>
+            [Scenario]
+            [Label("Ticket-1")]
+            public void Successful_login()
+            {
+                Runner.RunScenario(
+                    Given_the_user_is_about_to_login,
+                    Given_the_user_entered_valid_login,
+                    Given_the_user_entered_valid_password,
+                    When_the_user_clicks_login_button,
+                    Then_the_login_operation_should_be_successful,
+                    Then_a_welcome_message_containing_user_name_should_be_returned);
+            }
+            </code>
+            Expected step signature:
+            <code>
+            void Given_the_user_is_about_to_login() { /* ... */ }
+            </code>
+            </summary>
+            <param name="runner">Runner.</param>
+            <param name="steps">List of steps to execute in order.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions.RunScenarioAsync(LightBDD.Framework.IBddRunner,System.Func{System.Threading.Tasks.Task}[])">
+            <summary>
+            Runs test scenario by executing given steps in specified order.<br/>
+            If given step throws, other are not executed.<br/>
+            Scenario name is determined from the method name in which <see cref="M:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions.RunScenarioAsync(LightBDD.Framework.IBddRunner,System.Func{System.Threading.Tasks.Task}[])"/>() method is called.<br/>
+            Scenario labels are determined from <see cref="T:LightBDD.Framework.LabelAttribute"/> attributes applied on scenario method.<br/>
+            Step name is determined from corresponding action name.<br/>
+            Example usage:
+            <code>
+            [Scenario]
+            [Label("Ticket-1")]
+            public Task Successful_login()
+            {
+                return Runner.RunScenarioAsync(
+                    Given_the_user_is_about_to_login,
+                    Given_the_user_entered_valid_login,
+                    Given_the_user_entered_valid_password,
+                    When_the_user_clicks_login_button,
+                    Then_the_login_operation_should_be_successful,
+                    Then_a_welcome_message_containing_user_name_should_be_returned);
+            }
+            </code>
+            Expected step signature:
+            <code>
+            async Task Given_the_user_is_about_to_login() { /* ... */ }
+            </code>
+            </summary>
+            <param name="runner">Runner.</param>
+            <param name="steps">List of steps to execute in order.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions.RunScenarioActionsAsync(LightBDD.Framework.IBddRunner,System.Action[])">
+            <summary>
+            Runs test scenario by executing given steps in specified order.<br/>
+            If given step throws, other are not executed.<br/>
+            Scenario name is determined from the method name in which <see cref="M:LightBDD.Framework.Scenarios.Basic.BasicScenarioExtensions.RunScenarioActionsAsync(LightBDD.Framework.IBddRunner,System.Action[])"/>() method is called.<br/>
+            Scenario labels are determined from <see cref="T:LightBDD.Framework.LabelAttribute"/> attributes applied on scenario method.<br/>
+            Step name is determined from corresponding action name.<br/>
+            Example usage:
+            <code>
+            [Scenario]
+            [Label("Ticket-1")]
+            public Task Successful_login()
+            {
+                return Runner.RunScenarioActionsAsync(
+                    Given_the_user_is_about_to_login,
+                    Given_the_user_entered_valid_login,
+                    Given_the_user_entered_valid_password,
+                    When_the_user_clicks_login_button,
+                    Then_the_login_operation_should_be_successful,
+                    Then_a_welcome_message_containing_user_name_should_be_returned);
+            }
+            </code>
+            Expected step signature:
+            <code>
+            async void Given_the_user_is_about_to_login() { /* ... */ }
+            </code>
+            or 
+            <code>
+            void Given_the_user_is_about_to_login() { /* ... */ }
+            </code>
+            </summary>
+            <param name="runner">Runner.</param>
+            <param name="steps">List of steps to execute in order.</param>
+        </member>
+        <member name="T:LightBDD.Framework.Scenarios.Contextual.ContextualScenarioExtensions">
+            <summary>
+            Extensions allowing to create contextual <see cref="T:LightBDD.Framework.IBddRunner"/> instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Contextual.ContextualScenarioExtensions.WithContext``1(LightBDD.Framework.IBddRunner,System.Func{``0})">
+            <summary>
+            Specifies that scenario would be executed in dedicated context of <typeparamref name="TContext"/> type, created by <paramref name="contextFactory"/> function.
+            The context instance would be created by calling default constructor just before scenario execution.
+            </summary>
+            <typeparam name="TContext">Context type.</typeparam>
+            <param name="runner"><see cref="T:LightBDD.Framework.IBddRunner"/> instance.</param>
+            <param name="contextFactory">Context factory function.</param>
+            <returns>Contextual runner.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Contextual.ContextualScenarioExtensions.WithContext``1(LightBDD.Framework.IBddRunner,``0)">
+            <summary>
+            Specifies that scenario would be executed in dedicated <paramref name="context"/> of <typeparamref name="TContext"/> type.
+            </summary>
+            <typeparam name="TContext">Context type.</typeparam>
+            <param name="runner"><see cref="T:LightBDD.Framework.IBddRunner"/> instance.</param>
+            <param name="context">Context instance.</param>
+            <returns>Contextual runner.</returns>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Contextual.ContextualScenarioExtensions.WithContext``1(LightBDD.Framework.IBddRunner)">
+            <summary>
+            Returns runner that would be executing scenarios in dedicated context of <typeparamref name="TContext"/> type.<br/>
+            The context instance would be created by calling default constructor just before scenario execution.
+            </summary>
+            <param name="runner"><see cref="T:LightBDD.Framework.IBddRunner"/> instance.</param>
+            <typeparam name="TContext">Context type.</typeparam>
+            <returns>Contextual runner.</returns>
+        </member>
+        <member name="T:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions">
+            <summary>
+            Extensions class allowing to use extended scenario syntax for running LightBDD tests.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenario``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Action{``0}}[])">
+            <summary>
+            Runs test scenario by executing given steps in specified order.<br/>
+            If given step throws, other are not executed.<br/>
+            Scenario name is determined from the method name in which <see cref="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenario``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Action{``0}}[])"/>() method was called.<br/>
+            Scenario labels are determined from <see cref="T:LightBDD.Framework.LabelAttribute"/> attributes applied on method in which <see cref="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenario``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Action{``0}}[])"/>() method was called.<br/>
+            Step name is determined from lambda parameter name reflecting action type keyword, corresponding action name and passed list of parameters to called method.<br/>
+            If scenario is executed with context, the context instance is provided with lambda parameter.
+            Please note that rules for placing parameter values in step name are as follows, where first matching rule would be used:
+            <list type="bullet">
+            <item><description>it will replace first occurrence of variable name written in capital letters (<c>void Price_is_AMOUNT_dollars(int amount)</c> => <c>Price is "27" dollars</c>)</description></item>
+            <item><description>it will placed after first occurrence of variable name (<c>void Product_is_in_stock(string product)</c> => <c>Product "desk" is in stock</c>)</description></item>
+            <item><description>it will placed at the end of step name (<c>void Product_is_in_stock(string productId)</c> => <c>Product is in stock [productId: "ABC123"]</c>)</description></item>
+            </list>
+            <para>
+            Example usage for scenarios with no context:
+            <code>
+            [Scenario]
+            [Label("Ticket-2")]
+            public void Receiving_invoice_for_products()
+            {
+                Runner.RunScenario(
+                    _ => Given_product_is_available_in_product_storage("wooden desk"),
+                    _ => Given_product_is_available_in_product_storage("wooden shelf"),
+                    _ => When_customer_buys_product("wooden desk"),
+                    _ => When_customer_buys_product("wooden shelf"),
+                    _ => Then_an_invoice_should_be_sent_to_the_customer(),
+                    _ => Then_invoice_should_contain_product_with_price_of_AMOUNT_pounds("wooden desk", 62),
+                    _ => Then_invoice_should_contain_product_with_price_of_AMOUNT_pounds("wooden shelf", 37));
+            }
+            </code>
+            Expected step signature:
+            <code>
+            void Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            </code>
+            </para>
+            <para>
+            Example usage for scenarios with context:
+            <code>
+            [Scenario]
+            [Label("Ticket-3")]
+            public void Receiving_invoice_for_products()
+            {
+                Runner.WithContext&lt;SpeditionContext&gt;().RunScenario(
+                    _ => _.Given_there_is_an_active_customer_with_id("ABC-123"),
+                    _ => _.Given_the_customer_has_product_in_basket("wooden shelf"),
+                    _ => _.Given_the_customer_has_product_in_basket("wooden desk"),
+                    _ => _.When_the_customer_payment_finalizes(),
+                    _ => _.Then_product_should_be_dispatched_to_the_customer("wooden shelf"),
+                    _ => _.Then_product_should_be_dispatched_to_the_customer("wooden desk"));
+            }
+            </code>
+            Expected step signature:
+            <code>
+            class SpeditionContext
+            {
+                void Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            }
+            </code>
+            </para>
+            </summary>
+            <param name="runner">Runner.</param>
+            <param name="steps">List of steps to execute in order.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenarioAsync``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Threading.Tasks.Task}}[])">
+            <summary>
+            Runs test scenario by executing given steps in specified order.<br/>
+            If given step throws, other are not executed.<br/>
+            Scenario name is determined from the method name in which <see cref="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenarioAsync``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Threading.Tasks.Task}}[])"/>() method was called.<br/>
+            Scenario labels are determined from <see cref="T:LightBDD.Framework.LabelAttribute"/> attributes applied on method in which <see cref="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenarioAsync``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Threading.Tasks.Task}}[])"/>() method was called.<br/>
+            Step name is determined from lambda parameter name reflecting action type keyword, corresponding action name and passed list of parameters to called method.<br/>
+            If scenario is executed with context, the context instance is provided with lambda parameter.
+            Please note that rules for placing parameter values in step name are as follows, where first matching rule would be used:
+            <list type="bullet">
+            <item><description>it will replace first occurrence of variable name written in capital letters (<c>Task Price_is_AMOUNT_dollars(int amount)</c> => <c>Price is "27" dollars</c>)</description></item>
+            <item><description>it will placed after first occurrence of variable name (<c>Task Product_is_in_stock(string product)</c> => <c>Product "desk" is in stock</c>)</description></item>
+            <item><description>it will placed at the end of step name (<c>Task Product_is_in_stock(string productId)</c> => <c>Product is in stock [productId: "ABC123"]</c>)</description></item>
+            </list>
+            <para>
+            Example usage for scenarios with no context:
+            <code>
+            [Scenario]
+            [Label("Ticket-2")]
+            public Task Receiving_invoice_for_products()
+            {
+                return Runner.RunScenarioAsync(
+                    _ => Given_product_is_available_in_product_storage("wooden desk"),
+                    _ => Given_product_is_available_in_product_storage("wooden shelf"),
+                    _ => When_customer_buys_product("wooden desk"),
+                    _ => When_customer_buys_product("wooden shelf"),
+                    _ => Then_an_invoice_should_be_sent_to_the_customer(),
+                    _ => Then_invoice_should_contain_product_with_price_of_AMOUNT_pounds("wooden desk", 62),
+                    _ => Then_invoice_should_contain_product_with_price_of_AMOUNT_pounds("wooden shelf", 37));
+            }
+            </code>
+            Expected step signature:
+            <code>
+            async Task Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            </code>
+            </para>
+            <para>
+            Example usage for scenarios with context:
+            <code>
+            [Scenario]
+            [Label("Ticket-3")]
+            public Task Receiving_invoice_for_products()
+            {
+                return Runner.WithContext&lt;SpeditionContext&gt;().RunScenarioAsync(
+                    _ => _.Given_there_is_an_active_customer_with_id("ABC-123"),
+                    _ => _.Given_the_customer_has_product_in_basket("wooden shelf"),
+                    _ => _.Given_the_customer_has_product_in_basket("wooden desk"),
+                    _ => _.When_the_customer_payment_finalizes(),
+                    _ => _.Then_product_should_be_dispatched_to_the_customer("wooden shelf"),
+                    _ => _.Then_product_should_be_dispatched_to_the_customer("wooden desk"));
+            }
+            </code>
+            Expected step signature:
+            <code>
+            class SpeditionContext
+            {
+                async Task Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            }
+            </code>
+            </para>
+            </summary>
+            <remarks>This is an asynchronous method and should be awaited.</remarks>
+            <param name="runner">Runner.</param>
+            <param name="steps">List of steps to execute in order.</param>
+        </member>
+        <member name="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenarioActionsAsync``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Action{``0}}[])">
+            <summary>
+            Runs test scenario by executing given steps in specified order.<br/>
+            If given step throws, other are not executed.<br/>
+            Scenario name is determined from the method name in which <see cref="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenarioActionsAsync``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Action{``0}}[])"/>() method was called.<br/>
+            Scenario labels are determined from <see cref="T:LightBDD.Framework.LabelAttribute"/> attributes applied on method in which <see cref="M:LightBDD.Framework.Scenarios.Extended.ExtendedScenarioExtensions.RunScenarioActionsAsync``1(LightBDD.Framework.IBddRunner{``0},System.Linq.Expressions.Expression{System.Action{``0}}[])"/>() method was called.<br/>
+            Step name is determined from lambda parameter name reflecting action type keyword, corresponding action name and passed list of parameters to called method.<br/>
+            If scenario is executed with context, the context instance is provided with lambda parameter.
+            Please note that rules for placing parameter values in step name are as follows, where first matching rule would be used:
+            <list type="bullet">
+            <item><description>it will replace first occurrence of variable name written in capital letters (<c>void Price_is_AMOUNT_dollars(int amount)</c> => <c>Price is "27" dollars</c>)</description></item>
+            <item><description>it will placed after first occurrence of variable name (<c>void Product_is_in_stock(string product)</c> => <c>Product "desk" is in stock</c>)</description></item>
+            <item><description>it will placed at the end of step name (<c>void Product_is_in_stock(string productId)</c> => <c>Product is in stock [productId: "ABC123"]</c>)</description></item>
+            </list>
+            <para>
+            Example usage for scenarios with no context:
+            <code>
+            [Scenario]
+            [Label("Ticket-2")]
+            public Task Receiving_invoice_for_products()
+            {
+                return Runner.RunScenarioActionsAsync(
+                    _ => Given_product_is_available_in_product_storage("wooden desk"),
+                    _ => Given_product_is_available_in_product_storage("wooden shelf"),
+                    _ => When_customer_buys_product("wooden desk"),
+                    _ => When_customer_buys_product("wooden shelf"),
+                    _ => Then_an_invoice_should_be_sent_to_the_customer(),
+                    _ => Then_invoice_should_contain_product_with_price_of_AMOUNT_pounds("wooden desk", 62),
+                    _ => Then_invoice_should_contain_product_with_price_of_AMOUNT_pounds("wooden shelf", 37));
+            }
+            </code>
+            Expected step signature:
+            <code>
+            async void Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            </code>
+            or
+            <code>
+            void Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            </code>
+            </para>
+            <para>
+            Example usage for scenarios with context:
+            <code>
+            [Scenario]
+            [Label("Ticket-3")]
+            public Task Receiving_invoice_for_products()
+            {
+                return Runner.WithContext&lt;SpeditionContext&gt;().RunScenarioActionsAsync(
+                    _ => _.Given_there_is_an_active_customer_with_id("ABC-123"),
+                    _ => _.Given_the_customer_has_product_in_basket("wooden shelf"),
+                    _ => _.Given_the_customer_has_product_in_basket("wooden desk"),
+                    _ => _.When_the_customer_payment_finalizes(),
+                    _ => _.Then_product_should_be_dispatched_to_the_customer("wooden shelf"),
+                    _ => _.Then_product_should_be_dispatched_to_the_customer("wooden desk"));
+            }
+            </code>
+            Expected step signature:
+            <code>
+            class SpeditionContext
+            {
+                async void Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            }
+            </code>
+            or
+            <code>
+            class SpeditionContext
+            {
+                void Given_product_is_available_in_product_storage(string product) { /* ... */ }
+            }
+            </code>
+            </para>
+            </summary>
+            <remarks>This is an asynchronous method and should be awaited.</remarks>
+            <param name="runner">Runner.</param>
+            <param name="steps">List of steps to execute in order.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LightBDD.NUnit2</name>
+    </assembly>
+    <members>
+        <member name="T:LightBDD.NUnit2.FeatureFixture">
+            <summary>
+            Base class for feature tests with NUnit framework.
+            It offers <see cref="P:LightBDD.NUnit2.FeatureFixture.Runner"/> property allowing to execute scenarios belonging to the feature class.
+            </summary>
+        </member>
+        <member name="P:LightBDD.NUnit2.FeatureFixture.Runner">
+            <summary>
+            Returns <see cref="T:LightBDD.Framework.IBddRunner"/> allowing to execute scenarios belonging to the feature class.
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.FeatureFixture.#ctor">
+            <summary>
+            Default constructor initializing <see cref="P:LightBDD.NUnit2.FeatureFixture.Runner"/> for feature class instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.FeatureFixture.FeatureFixtureTearDown">
+            <summary>
+            Feature fixture tear down method disposing <see cref="P:LightBDD.NUnit2.FeatureFixture.Runner"/> after all tests are executed.
+            </summary>
+        </member>
+        <member name="T:LightBDD.NUnit2.FeatureFixtureAttribute">
+            <summary>
+            Attribute that should be applied to all test classes representing feature tests.
+            It is required for running LightBDD tests with NUnit testing framework.
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.FeatureFixtureAttribute.BeforeTest(NUnit.Framework.TestDetails)">
+            <summary>Executed before each test is run</summary>
+            <param name="testDetails">Provides details about the test that is going to be run.</param>
+        </member>
+        <member name="M:LightBDD.NUnit2.FeatureFixtureAttribute.AfterTest(NUnit.Framework.TestDetails)">
+            <summary>Executed after each test is run</summary>
+            <param name="testDetails">Provides details about the test that has just been run.</param>
+        </member>
+        <member name="P:LightBDD.NUnit2.FeatureFixtureAttribute.Targets">
+            <summary>Provides the target for the action attribute</summary>
+            <returns>The target for the action attribute</returns>
+        </member>
+        <member name="T:LightBDD.NUnit2.FeatureRunnerProvider">
+            <summary>
+            Class allowing to instantiate <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/> that is being configured to work with NUnit framework.
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.FeatureRunnerProvider.GetRunnerFor(System.Type)">
+            <summary>
+            Returns <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/> for given <paramref name="featureType"/>.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns><see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/> object.</returns>
+        </member>
+        <member name="T:LightBDD.NUnit2.LightBddScopeAttribute">
+            <summary>
+            An attribute allowing to initialize and finalize LightBDD in NUnit framework.
+            
+            The <c>[assembly:LightBddScope]</c> attribute has to be present in assembly containing LightBDD tests.
+            It is possible to customize the LightBDD configuration by overriding the <see cref="M:LightBDD.NUnit2.LightBddScopeAttribute.OnConfigure(LightBDD.Core.Configuration.LightBddConfiguration)"/>() method.
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.LightBddScopeAttribute.BeforeTest(NUnit.Framework.TestDetails)">
+            <summary>Executed before each test is run</summary>
+            <param name="testDetails">Provides details about the test that is going to be run.</param>
+        </member>
+        <member name="M:LightBDD.NUnit2.LightBddScopeAttribute.OnConfigure(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Allows to customize LightBDD configuration.
+            </summary>
+            <param name="configuration">Configuration to customize.</param>
+        </member>
+        <member name="M:LightBDD.NUnit2.LightBddScopeAttribute.OnSetUp">
+            <summary>
+            Allows to execute additional actions after LightBDD scope initialization
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.LightBddScopeAttribute.OnTearDown">
+            <summary>
+            Allows to execute additional cleanup just after LightBDD scope termination
+            </summary>
+        </member>
+        <member name="M:LightBDD.NUnit2.LightBddScopeAttribute.AfterTest(NUnit.Framework.TestDetails)">
+            <summary>Executed after each test is run</summary>
+            <param name="testDetails">Provides details about the test that has just been run.</param>
+        </member>
+        <member name="P:LightBDD.NUnit2.LightBddScopeAttribute.Targets">
+            <summary>Provides the target for the action attribute</summary>
+            <returns>The target for the action attribute</returns>
+        </member>
+        <member name="T:LightBDD.NUnit2.ScenarioAttribute">
+            <summary>
+            Scenario attribute that should be used for NUnit framework tests, as a replacement for [Test] attribute.
+            The ScenarioAttribute represents scenario test method.
+            </summary>
+        </member>
+    </members>
+</doc>

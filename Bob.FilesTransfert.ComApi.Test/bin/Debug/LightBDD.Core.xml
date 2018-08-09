@@ -1,0 +1,1304 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LightBDD.Core</name>
+    </assembly>
+    <members>
+        <member name="T:LightBDD.Core.Configuration.ConfigurationExtensions">
+            <summary>
+            Extension class allowing to configure core parts of LightBDD.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ConfigurationExtensions.StepTypeConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Returns step type configuration.
+            </summary>
+            <param name="cfg">Configuration object.</param>
+            <returns>Step type configuration.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ConfigurationExtensions.CultureInfoProviderConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Returns culture info provider configuration.
+            </summary>
+            <param name="cfg">Configuration object.</param>
+            <returns>Culture info provider configuration.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ConfigurationExtensions.ExecutionExtensionsConfiguration(LightBDD.Core.Configuration.LightBddConfiguration)">
+            <summary>
+            Return execution extensions configuration.
+            </summary>
+            <param name="cfg">Configuration object.</param>
+            <returns>Execution extensions configuration.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Configuration.CultureInfoProviderConfiguration">
+            <summary>
+            Culture info provider configuration.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.CultureInfoProviderConfiguration.#ctor">
+            <summary>
+            Default constructor configuring <see cref="T:LightBDD.Core.Extensibility.DefaultCultureInfoProvider"/> as CultureInfoProvider.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Configuration.CultureInfoProviderConfiguration.CultureInfoProvider">
+            <summary>
+            Culture info provider.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.CultureInfoProviderConfiguration.UpdateCultureInfoProvider(LightBDD.Core.Extensibility.ICultureInfoProvider)">
+            <summary>
+            Updates current culture info provider.
+            </summary>
+            <param name="provider">New provider instance to set.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration">
+            <summary>
+            Execution extensions configuration allowing to enable LightBDD extensions.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration.ScenarioExecutionExtensions">
+            <summary>
+            Collection of scenario execution extensions.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration.StepExecutionExtensions">
+            <summary>
+            Collection of step execution extensions.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration.EnableScenarioExtension``1">
+            <summary>
+            Enables scenario execution extension of specified type.
+            If extension is already enabled the method does nothing.
+            </summary>
+            <typeparam name="TScenarioExecutionExtension">Extension type to enable.</typeparam>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration.EnableScenarioExtension``1(System.Func{``0})">
+            <summary>
+            Enables scenario execution extension of specified type.
+            If extension is already enabled the method does nothing.
+            If extension is not enabled yet, the given <c>factory</c> parameter would be used to instantiate extension.
+            </summary>
+            <typeparam name="TScenarioExecutionExtension">Extension type to enable.</typeparam>
+            <param name="factory">Factory used to instantiate the extension.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration.EnableStepExtension``1(System.Func{``0})">
+            <summary>
+            Enables step execution extension of specified type.
+            If extension is already enabled the method does nothing.
+            If extension is not enabled yet, the given <c>factory</c> parameter would be used to instantiate extension.
+            </summary>
+            <typeparam name="TStepExecutionExtension">Extension type to enable.</typeparam>
+            <param name="factory">Factory used to instantiate the extension.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.ExecutionExtensionsConfiguration.EnableStepExtension``1">
+            <summary>
+            Enables scenario execution extension of specified type.
+            If extension is already enabled the method does nothing.
+            </summary>
+            <typeparam name="TStepExecutionExtension">Extension type to enable.</typeparam>
+            <returns>Self.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Configuration.IFeatureConfiguration">
+            <summary>
+            Marker interface specifying that class describes LightBDD feature configuration.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Configuration.LightBddConfiguration">
+            <summary>
+            LightBDD feature configuration class allowing to configure and/or obtain LightBDD features configuration.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.LightBddConfiguration.Get``1">
+            <summary>
+            Returns current feature configuration of requested type.
+            If there was no configuration specified for given feature, the default configuration would be instantiated and returned for further customizations.
+            </summary>
+            <typeparam name="TConfiguration">Feature configuration type.</typeparam>
+            <returns>Feature configuration instance.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Configuration.StepTypeConfiguration">
+            <summary>
+            Step type configuration allowing to define step types recognized by LightBDD.
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Configuration.StepTypeConfiguration.DefaultRepeatedStepReplacement">
+            <summary>
+            Default repeated step replacement: and
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Configuration.StepTypeConfiguration.DefaultPredefinedStepTypes">
+            <summary>
+            Default predefined step types: given, when, then, setup, and
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.StepTypeConfiguration.#ctor">
+            <summary>
+            Default constructor initializing configuration with <see cref="F:LightBDD.Core.Configuration.StepTypeConfiguration.DefaultRepeatedStepReplacement"/> and <see cref="F:LightBDD.Core.Configuration.StepTypeConfiguration.DefaultPredefinedStepTypes"/>.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Configuration.StepTypeConfiguration.RepeatedStepReplacement">
+            <summary>
+            Current value of repeated step replacement that would be used to replace consecutive steps of the same type.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.StepTypeConfiguration"/>.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Configuration.StepTypeConfiguration.PredefinedStepTypes">
+            <summary>
+            Current collection of predefined step types that would be used to recognize step type in the parsed step method name.
+            See also: <seealso cref="T:LightBDD.Core.Configuration.StepTypeConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.StepTypeConfiguration.UpdatePredefinedStepTypes(System.String[])">
+            <summary>
+            Updates current predefined step types.
+            </summary>
+            <param name="stepTypes">New step types to set.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Configuration.StepTypeConfiguration.UpdateRepeatedStepReplacement(System.String)">
+            <summary>
+            Updates current repeated step replacement.
+            </summary>
+            <param name="replacement">Replacement to set.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Execution.IStep">
+            <summary>
+            Interface describing current step, providing step information details and ability to comment it.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Execution.IStep.Info">
+            <summary>
+            Step information details.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Execution.IStep.Comment(System.String)">
+            <summary>
+            Annotates step with comment.
+            It is possible to comment step many times.
+            </summary>
+            <param name="comment">Comment.</param>
+        </member>
+        <member name="T:LightBDD.Core.Execution.StepBypassException">
+            <summary>
+            Step bypass exception used to mark step bypassed
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Execution.StepBypassException.#ctor(System.String)">
+            <summary>
+            Constructor allowing to specify bypass reason.
+            </summary>
+            <param name="reason">Bypass reason.</param>
+        </member>
+        <member name="T:LightBDD.Core.Execution.Coordination.FeatureCoordinator">
+            <summary>
+            Feature coordinator singleton class holding <see cref="T:LightBDD.Core.Extensibility.FeatureRunnerRepository"/> allowing to instantiate runners as well as <see cref="T:LightBDD.Core.Execution.Coordination.IFeatureAggregator"/> used for aggregate execution results on coordinator disposal.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Execution.Coordination.FeatureCoordinator.Instance">
+            <summary>
+            Feature coordinator instance.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Execution.Coordination.FeatureCoordinator.RunnerRepository">
+            <summary>
+            Runner factory.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Execution.Coordination.FeatureCoordinator.IsDisposed">
+            <summary>
+            Returns <c>true</c> if already disposed, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Execution.Coordination.FeatureCoordinator.Install(LightBDD.Core.Execution.Coordination.FeatureCoordinator)">
+            <summary>
+            Installs the specified feature coordinator in thread safe manner.
+            </summary>
+            <param name="coordinator">Coordinator instance to install.</param>
+            <exception cref="T:System.InvalidOperationException">Exception thrown if another coordinator is already installed.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Execution.Coordination.FeatureCoordinator.#ctor(LightBDD.Core.Extensibility.FeatureRunnerRepository,LightBDD.Core.Execution.Coordination.IFeatureAggregator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="runnerRepository">Runner factory instance that would be used for instantiating runners.</param>
+            <param name="featureAggregator">Feature aggregator instance used for aggregating feature results on coordinator disposal.</param>
+        </member>
+        <member name="M:LightBDD.Core.Execution.Coordination.FeatureCoordinator.Dispose">
+            <summary>
+            Disposes coordinator, triggering feature result aggregation.
+            Each runner belonging to <see cref="P:LightBDD.Core.Execution.Coordination.FeatureCoordinator.RunnerRepository"/>, is disposed and its feature result is aggregated.
+            After aggregation of all results, the feature aggregator is disposed as well.
+            
+            If coordinator is already disposed, methods does nothing.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Execution.Coordination.IFeatureAggregator">
+            <summary>
+            Feature aggregator interface for collecting feature results.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Execution.Coordination.IFeatureAggregator.Aggregate(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Aggregates given feature result.
+            </summary>
+            <param name="featureResult">Feature result to aggregate.</param>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.CoreMetadataProvider">
+            <summary>
+            Metadata provider offering core implementation for providing feature, scenario and step metadata.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.#ctor(LightBDD.Core.Formatting.INameFormatter,LightBDD.Core.Configuration.StepTypeConfiguration,LightBDD.Core.Extensibility.ICultureInfoProvider)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="nameFormatter"><see cref="T:LightBDD.Core.Formatting.INameFormatter"/> object used to format names.</param>
+            <param name="stepTypeConfiguration"><see cref="T:LightBDD.Core.Configuration.StepTypeConfiguration"/> object used in providing step metadata.</param>
+            <param name="cultureInfoProvider"><see cref="T:LightBDD.Core.Extensibility.ICultureInfoProvider"/> object used in providing step parameter formatters.</param>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.CoreMetadataProvider.CultureInfoProvider">
+            <summary>
+            Returns currently used <see cref="T:LightBDD.Core.Extensibility.ICultureInfoProvider"/> instance.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.CoreMetadataProvider.NameFormatter">
+            <summary>
+            Returns currently used <see cref="T:LightBDD.Core.Formatting.INameFormatter"/> instance.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetFeatureInfo(System.Type)">
+            <summary>
+            Provides <see cref="T:LightBDD.Core.Metadata.IFeatureInfo"/> object containing information about feature represented by <paramref name="featureType"/>.
+            
+            The <see cref="P:LightBDD.Core.Metadata.IFeatureInfo.Name"/> is determined from the <paramref name="featureType"/> name.
+            The <see cref="P:LightBDD.Core.Metadata.IFeatureInfo.Labels"/> are determined from attributes implementing <see cref="T:LightBDD.Core.Extensibility.ILabelAttribute"/>, applied on <paramref name="featureType"/>.
+            The <see cref="P:LightBDD.Core.Metadata.IFeatureInfo.Description"/> is determined from attribute implementing <see cref="T:LightBDD.Core.Extensibility.IFeatureDescriptionAttribute"/> in first instance, then by <see cref="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetImplementationSpecificFeatureDescription(System.Type)"/>() method. The value may be <c>null</c>.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns><see cref="T:LightBDD.Core.Metadata.IFeatureInfo"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.CaptureCurrentScenarioMethod">
+            <summary>
+            Provides currently executed scenario method.
+            </summary>
+            <returns><see cref="T:System.Reflection.MethodBase"/> describing currently executed scenario method.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when called outside of scenario method.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetScenarioName(System.Reflection.MethodBase)">
+            <summary>
+            Provides <see cref="T:LightBDD.Core.Metadata.INameInfo"/> object containing information about scenario name represented by <paramref name="scenarioMethod"/>.
+            The name is based on provided method name.
+            The current implementation ignores scenario parameters, always constructing object with empty <see cref="P:LightBDD.Core.Metadata.INameInfo.Parameters"/> collection.
+            </summary>
+            <param name="scenarioMethod">Scenario method.</param>
+            <returns><see cref="T:LightBDD.Core.Metadata.INameInfo"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetScenarioLabels(System.Reflection.MethodBase)">
+            <summary>
+            Provides scenario labels for scenario represented by <paramref name="scenarioMethod"/> which are determined from attributes implementing <see cref="T:LightBDD.Core.Extensibility.ILabelAttribute"/>, applied on the method.
+            </summary>
+            <param name="scenarioMethod">Scenario method.</param>
+            <returns>Scenario labels.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetScenarioCategories(System.Reflection.MethodBase)">
+            <summary>
+            Provides scenario categories for scenario represented by <paramref name="scenarioMethod"/>.
+            The categories are determined from attributes implementing <see cref="T:LightBDD.Core.Extensibility.IScenarioCategoryAttribute"/>, applied on <paramref name="scenarioMethod"/> and type declaring the method,
+            as well as from <see cref="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetImplementationSpecificScenarioCategories(System.Reflection.MemberInfo)"/>() executed on <paramref name="scenarioMethod"/> and type declaring the method.
+            
+            The categories specified on base classes will also be retrieved.
+            </summary>
+            <param name="scenarioMethod">Scenario method.</param>
+            <returns>Scenario categories.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetStepName(LightBDD.Core.Extensibility.StepDescriptor,System.String)">
+            <summary>
+            Provides <see cref="T:LightBDD.Core.Metadata.IStepNameInfo"/> object containing information about step name represented by <paramref name="stepDescriptor"/>.
+            The <paramref name="previousStepTypeName"/> represents the step type name of previous step.
+            <para>
+            The <see cref="P:LightBDD.Core.Metadata.IStepNameInfo.StepTypeName"/> is determined from value <see cref="P:LightBDD.Core.Extensibility.StepDescriptor.PredefinedStepType"/> or parsed from <see cref="P:LightBDD.Core.Extensibility.StepDescriptor.RawName"/> if former is <c>null</c>.
+            When determined step type is the same as <paramref name="previousStepTypeName"/>, it is being replaced with <see cref="P:LightBDD.Core.Configuration.StepTypeConfiguration.RepeatedStepReplacement"/>.
+            </para>
+            See also: <seealso cref="T:LightBDD.Core.Configuration.StepTypeConfiguration"/>, <seealso cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/>.
+            </summary>
+            <param name="stepDescriptor">Step descriptor.</param>
+            <param name="previousStepTypeName">Step type name of previous step, or <c>null</c> if current step is first one.</param>
+            <returns><see cref="T:LightBDD.Core.Metadata.IStepNameInfo"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetStepParameterFormatter(System.Reflection.ParameterInfo)">
+            <summary>
+            Provides step parameter formatter function for provided <paramref name="parameterInfo"/>.
+            If <see cref="T:LightBDD.Core.Formatting.Parameters.ParameterFormatterAttribute"/> is applied on <paramref name="parameterInfo"/>, it will be used to retrieve formatter function, otherwise the default one will be provided.
+            The returned formatter function uses <see cref="P:LightBDD.Core.Extensibility.CoreMetadataProvider.CultureInfoProvider"/> to format parameters.
+            </summary>
+            <param name="parameterInfo"><see cref="T:System.Reflection.ParameterInfo"/> object describing step or scenario method parameter.</param>
+            <returns>Formatter function.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when more than one <see cref="T:LightBDD.Core.Formatting.Parameters.ParameterFormatterAttribute"/> is applied on <paramref name="parameterInfo"/>.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetImplementationSpecificScenarioCategories(System.Reflection.MemberInfo)">
+            <summary>
+            Returns implementation specific scenario categories or empty collection if no categories are provided.
+            </summary>
+            <param name="member">Scenario method or feature test class to analyze.</param>
+            <returns>Scenario categories or empty collection.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetImplementationSpecificFeatureDescription(System.Type)">
+            <summary>
+            Returns implementation specific feature description or null if such is not provided.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns>Feature description or null.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.ExtractAttributePropertyValue``1(System.Reflection.MemberInfo,System.Func{``0,System.String})">
+            <summary>
+            Provides value of attribute of type <typeparamref name="TAttribute"/> applied on <paramref name="member"/> or default if attribute is not applied.
+            The attribute is searched in <paramref name="member"/> and it's ancestors.
+            </summary>
+            <param name="member">Member to analyze for specified attribute.</param>
+            <param name="valueExtractor">Attribute value extraction method.</param>
+            <typeparam name="TAttribute">Type of attribute to extract.</typeparam>
+            <returns>Attribute value or default.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when attribute is applied more than once.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.ExtractAttributePropertyValues``1(System.Reflection.MemberInfo,System.Func{``0,System.String})">
+            <summary>
+            Provides values of all attributes of type <typeparamref name="TAttribute"/> applied on <paramref name="member"/> or empty collection if none are applied.
+            The attribute is searched in <paramref name="member"/> and it's ancestors.
+            </summary>
+            <param name="member">Member to analyze for specified attribute.</param>
+            <param name="valueExtractor">Attribute value extraction method.</param>
+            <typeparam name="TAttribute">Type of attribute to extract.</typeparam>
+            <returns>Values of all attributes or empty collection.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.ExtractAttributes``1(System.Reflection.MemberInfo)">
+            <summary>
+            Provides all attributes of type <typeparamref name="TAttribute"/> applied on <paramref name="member"/> or empty collection if none are applied.
+            The attribute is searched in <paramref name="member"/> and it's ancestors.
+            </summary>
+            <param name="member">Member to analyze for specified attribute.</param>
+            <typeparam name="TAttribute">Type of attribute to extract.</typeparam>
+            <returns>All attributes or empty collection.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetFeatureLabels(System.Type)">
+            <summary>
+            Provides labels from  attributes implementing <see cref="T:LightBDD.Core.Extensibility.ILabelAttribute"/>, applied on <paramref name="featureType"/>, or empty array if none are present.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns>Array of labels or empty array if none are present.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetFeatureName(System.Type)">
+            <summary>
+            Provides feature name which is determined from name of <paramref name="featureType"/>.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns>Feature name.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetFeatureDescription(System.Type)">
+            <summary>
+            Provides feature description which is determined from attribute implementing <see cref="T:LightBDD.Core.Extensibility.IFeatureDescriptionAttribute"/> in first instance, then by <see cref="M:LightBDD.Core.Extensibility.CoreMetadataProvider.GetImplementationSpecificFeatureDescription(System.Type)"/>() method. 
+            Returns description or <c>null</c> if none is present.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns>Feature description or <c>null</c>.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.DefaultCultureInfoProvider">
+            <summary>
+            Default implementation of <see cref="T:LightBDD.Core.Extensibility.ICultureInfoProvider"/> returning <c>CultureInfo.InvariantCulture</c>.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.DefaultCultureInfoProvider.GetCultureInfo">
+            <summary>
+            Returns CultureInfo.InvariantCulture that should be used for text formatting.
+            </summary>
+            <returns>CultureInfo.InvariantCulture.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.FeatureRunnerRepository">
+            <summary>
+            Abstract runner factory allowing to create <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/> instances and maintaining list of instantiated runners.
+            This class should be used by projects integrating LightBDD with testing frameworks.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.FeatureRunnerRepository.#ctor(LightBDD.Core.Extensibility.IIntegrationContext)">
+            <summary>
+            Constructor instantiating factory with specified integration context.
+            </summary>
+            <param name="integrationContext">Integration context.</param>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.FeatureRunnerRepository.GetRunnerFor(System.Type)">
+            <summary>
+            Returns feature runner for specified feature type.
+            If runner already exists for <paramref name="featureType"/>, the existing instance is returned, otherwise a new instance is being created.
+            </summary>
+            <param name="featureType">Type of class describing feature and holding list of scenario methods.</param>
+            <returns>Feature runner.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="featureType"/> is null.</exception>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.FeatureRunnerRepository.AllRunners">
+            <summary>
+            All currently instantiated runners.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.ICultureInfoProvider">
+            <summary>
+            Interface allowing to configure CultureInfo used in formatting text by LightBDD.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.ICultureInfoProvider.GetCultureInfo">
+            <summary>
+            Returns CultureInfo that should be used for text formatting.
+            </summary>
+            <returns>CultureInfo to use.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IFeatureDescriptionAttribute">
+             <summary>
+             Feature description attribute interface that can be applied on feature test class.
+             May be used to enrich feature class with description like "In order to... As a... I want to..."
+             or similar, that would be used by progress notifier and would be included in summary.
+            
+             If given implementation supports alternative description attributes, and both are applied on class, this one would be used.
+             </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IFeatureDescriptionAttribute.Description">
+            <summary>
+            Feature description.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IFeatureFixtureRunner">
+            <summary>
+            IFeatureFixtureRunner interface allowing to define and execute scenarios in programmatic manner.
+            The interface is dedicated for projects extending LightBDD with user friendly API for running scenarios - it should not be used directly by regular LightBDD users.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IFeatureFixtureRunner.NewScenario">
+            <summary>
+            Creates new scenario to execute.
+            </summary>
+            <returns>Scenario runner instance.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IFeatureRunner">
+            <summary>
+            The feature runner interface allowing to execute feature tests and collect execution results.
+            The instances of this interface can be provided by <see cref="T:LightBDD.Core.Extensibility.FeatureRunnerRepository"/>.
+            <para>It is expected that for given feature test class, one instance of <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/> is created, while each class instance will have dedicated instance of <see cref="T:LightBDD.Core.Extensibility.IFeatureFixtureRunner"/>.</para>
+            <para>Note for testing framework integration projects: The feature runner should be disposed after all scenarios execution.</para>
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IFeatureRunner.ForFixture(System.Object)">
+            <summary>
+            Returns <see cref="T:LightBDD.Core.Extensibility.IFeatureFixtureRunner"/> instance allowing to execute scenario tests on <paramref name="fixture"/> object.
+            </summary>
+            <param name="fixture">Fixture object containing scenario tests to execute.</param>
+            <returns><see cref="T:LightBDD.Core.Extensibility.IFeatureFixtureRunner"/> instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="fixture"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Throws when <paramref name="fixture"/> type does not match feature type that <see cref="T:LightBDD.Core.Extensibility.IFeatureRunner"/> has been created for by <see cref="T:LightBDD.Core.Extensibility.FeatureRunnerRepository"/>.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IFeatureRunner.GetFeatureResult">
+            <summary>
+            Returns current results of feature tests.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IIntegrationContext">
+            <summary>
+            Interface describing integration context provided by projects integrating with test frameworks.
+            The integration context is used to configure runners and used during scenario execution.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IIntegrationContext.MetadataProvider">
+            <summary>
+            Returns metadata provider.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IIntegrationContext.NameFormatter">
+            <summary>
+            Returns name formatter.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IIntegrationContext.ExceptionToStatusMapper">
+            <summary>
+            Returns exception to status mapping method.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IIntegrationContext.FeatureProgressNotifier">
+            <summary>
+            Returns feature progress notifier.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IIntegrationContext.ScenarioProgressNotifierProvider">
+            <summary>
+            Returns scenario progress notifier provider method.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IIntegrationContext.ExecutionExtensions">
+            <summary>
+            Returns LightBDD execution extensions.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.ILabelAttribute">
+            <summary>
+            Label attribute interface that can be applied on feature test class or scenario method.
+            May be used to link feature/scenario with external tools by storing ticket number.
+            Multiple labels per item are supported.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.ILabelAttribute.Label">
+            <summary>
+            Specified label.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IMetadataProvider">
+            <summary>
+            Test metadata provider interface allowing to provide feature, scenario and step metadata.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.GetFeatureInfo(System.Type)">
+            <summary>
+            Provides <see cref="T:LightBDD.Core.Metadata.IFeatureInfo"/> object containing information about feature represented by <paramref name="featureType"/>.
+            </summary>
+            <param name="featureType">Feature type.</param>
+            <returns><see cref="T:LightBDD.Core.Metadata.IFeatureInfo"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.CaptureCurrentScenarioMethod">
+            <summary>
+            Provides currently executed scenario method.
+            </summary>
+            <returns><see cref="T:System.Reflection.MethodBase"/> describing currently executed scenario method.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when called outside of scenario method.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.GetScenarioName(System.Reflection.MethodBase)">
+            <summary>
+            Provides <see cref="T:LightBDD.Core.Metadata.INameInfo"/> object containing information about scenario name represented by <paramref name="scenarioMethod"/>.
+            </summary>
+            <param name="scenarioMethod">Scenario method.</param>
+            <returns><see cref="T:LightBDD.Core.Metadata.INameInfo"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.GetScenarioLabels(System.Reflection.MethodBase)">
+            <summary>
+            Provides scenario labels for scenario represented by <paramref name="scenarioMethod"/>.
+            </summary>
+            <param name="scenarioMethod">Scenario method.</param>
+            <returns>Scenario labels.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.GetScenarioCategories(System.Reflection.MethodBase)">
+            <summary>
+            Provides scenario categories for scenario represented by <paramref name="scenarioMethod"/>.
+            </summary>
+            <param name="scenarioMethod">Scenario method.</param>
+            <returns>Scenario categories.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.GetStepName(LightBDD.Core.Extensibility.StepDescriptor,System.String)">
+            <summary>
+            Provides <see cref="T:LightBDD.Core.Metadata.IStepNameInfo"/> object containing information about step name represented by <paramref name="stepDescriptor"/>.
+            The <paramref name="previousStepTypeName"/> represents the step type name of previous step.
+            <para>
+            The <see cref="P:LightBDD.Core.Metadata.IStepNameInfo.StepTypeName"/> is determined from <see cref="P:LightBDD.Core.Extensibility.StepDescriptor.PredefinedStepType"/> or parsed from <see cref="P:LightBDD.Core.Extensibility.StepDescriptor.RawName"/> if former is <c>null</c>.
+            When determined step type is the same as <paramref name="previousStepTypeName"/>, it is being replaced with <see cref="P:LightBDD.Core.Configuration.StepTypeConfiguration.RepeatedStepReplacement"/>.
+            </para>
+            See also: <seealso cref="T:LightBDD.Core.Configuration.StepTypeConfiguration"/>, <seealso cref="T:LightBDD.Core.Configuration.LightBddConfiguration"/>.
+            </summary>
+            <param name="stepDescriptor">Step descriptor.</param>
+            <param name="previousStepTypeName">Step type name of previous step, or <c>null</c> if current step is first one.</param>
+            <returns><see cref="T:LightBDD.Core.Metadata.IStepNameInfo"/> object.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IMetadataProvider.GetStepParameterFormatter(System.Reflection.ParameterInfo)">
+            <summary>
+            Provides step parameter formatter function for provided <paramref name="parameterInfo"/>.
+            </summary>
+            <param name="parameterInfo"><see cref="T:System.Reflection.ParameterInfo"/> object describing step or scenario method parameter.</param>
+            <returns>Formatter function.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IScenarioCategoryAttribute">
+             <summary>
+             Scenario category attribute interface that can be applied on scenario test method.
+             May be used to associate scenarios with specific categories.
+             It is possible to apply multiple categories on given scenario.
+            
+             If given implementation supports alternative category attributes, and both are applied on scenario method, all of them would be used.
+             </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.IScenarioCategoryAttribute.Category">
+            <summary>
+            Scenario category name.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.IScenarioRunner">
+            <summary>
+            IScenarioRunner interface allowing to programmatically construct scenario to execute.
+            The interface is dedicated for projects extending LightBDD with user friendly API for running scenarios - it should not be used directly by regular LightBDD users.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.WithSteps(System.Collections.Generic.IEnumerable{LightBDD.Core.Extensibility.StepDescriptor})">
+            <summary>
+            Configures steps to be executed with scenario.
+            </summary>
+            <param name="steps">Steps to execute.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="steps"/> are <c>null</c>.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.WithCapturedScenarioDetails">
+            <summary>
+            Configures scenario details with values inferred by <see cref="T:LightBDD.Core.Extensibility.IMetadataProvider"/>.
+            </summary>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.WithLabels(System.String[])">
+            <summary>
+            Configures scenario with labels.
+            </summary>
+            <param name="labels">Labels to set.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="labels"/> are <c>null</c>.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.WithCategories(System.String[])">
+            <summary>
+            Configures scenario with categories.
+            </summary>
+            <param name="categories">Categories to set.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="categories"/> are <c>null</c>.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.WithName(System.String)">
+            <summary>
+            Configures scenario with name.
+            </summary>
+            <param name="name">Name to set.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentException">Throws when <paramref name="name"/> is <c>null</c> or empty.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.WithContext(System.Func{System.Object})">
+            <summary>
+            Configures scenario to be executed with context provided by <paramref name="contextProvider"/>.
+            </summary>
+            <param name="contextProvider">Context provider function.</param>
+            <returns>Self.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="contextProvider"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.RunAsynchronously">
+            <summary>
+            Runs scenario asynchronously and returns task representing it.
+            Before scenario is run, a validation is done if scenario is properly configured (i.e. name is defined and there is defined at least one step to execute).
+            </summary>
+            <returns>Scenario task.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when name or steps are not defined.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.IScenarioRunner.RunSynchronously">
+            <summary>
+            Runs scenario synchronously - guaranteeing that scenario and all steps will execute on the same, calling thread.
+            Before scenario is run, a validation is done if scenario is properly configured (i.e. name is defined and there is defined at least one step to execute).
+            It is expected that only such scenarios can run synchronously whose steps returns completed <see cref="T:System.Threading.Tasks.Task"/>. If any step method returns pending task, an <see cref="T:System.InvalidOperationException"/> exception will be thrown.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Throws when name or steps are not defined before scenario run. Throws also if any step method returns pending task.</exception>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.ParameterDescriptor">
+            <summary>
+            Class describing scenario or step method parameter and offering a method to evaluate parameter value.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.ParameterDescriptor.FromConstant(System.Reflection.ParameterInfo,System.Object)">
+            <summary>
+            Creates <see cref="T:LightBDD.Core.Extensibility.ParameterDescriptor"/> object representing <paramref name="parameterInfo"/> with constant value <paramref name="value"/>.
+            </summary>
+            <param name="parameterInfo"><see cref="P:LightBDD.Core.Extensibility.ParameterDescriptor.ParameterInfo"/> object describing parameter.</param>
+            <param name="value">Constant value that would be bound to the parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.ParameterDescriptor.FromInvocation(System.Reflection.ParameterInfo,System.Func{System.Object,System.Object})">
+            <summary>
+            Creates <see cref="T:LightBDD.Core.Extensibility.ParameterDescriptor"/> object representing <paramref name="parameterInfo"/> with not-constant value provided by <paramref name="valueEvaluator"/>.
+            It is expected that <paramref name="valueEvaluator"/> would be used once to evaluate parameter value, just before execution of method requiring this parameter value.
+            </summary>
+            <param name="parameterInfo"><see cref="P:LightBDD.Core.Extensibility.ParameterDescriptor.ParameterInfo"/> object describing parameter.</param>
+            <param name="valueEvaluator">Value evaluator function that should be used to retrieve parameter value.</param>
+            <returns></returns>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.ParameterDescriptor.RawName">
+            <summary>
+            Returns parameter raw name.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.ParameterDescriptor.IsConstant">
+            <summary>
+            Returns <c>true</c> if parameter is defined as constant with known value or <c>false</c> if parameter value has to be evaluated first in order to be known.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.ParameterDescriptor.ParameterInfo">
+            <summary>
+            Returns <see cref="P:LightBDD.Core.Extensibility.ParameterDescriptor.ParameterInfo"/> object describing this parameter.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.ParameterDescriptor.ValueEvaluator">
+            <summary>
+            Returns parameter value evaluator that would be used to evaluate parameter value during execution.
+            The value evaluator function parameter represents scenario context object defined by <see cref="M:LightBDD.Core.Extensibility.IScenarioRunner.WithContext(System.Func{System.Object})"/>() method.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.StepDescriptor">
+            <summary>
+            Class describing scenario step, including its metadata information as well invocation method together with parameters required to its execution.
+            It is designed to provide all required information for <see cref="M:LightBDD.Core.Extensibility.IMetadataProvider.GetStepName(LightBDD.Core.Extensibility.StepDescriptor,System.String)"/>() method to provide <see cref="T:LightBDD.Core.Metadata.IStepNameInfo"/> object.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.StepDescriptor.#ctor(System.String,System.String,System.Func{System.Object,System.Object[],System.Threading.Tasks.Task},LightBDD.Core.Extensibility.ParameterDescriptor[])">
+            <summary>
+            Constructor allowing to specify predefined step type, name, step invocation function and step parameters.
+            </summary>
+            <param name="predefinedStepType">Predefined step type - it can be <c>null</c>.</param>
+            <param name="rawName">Step raw name.</param>
+            <param name="stepInvocation">Step invocation function.</param>
+            <param name="parameters">Step invocation function parameters.</param>
+            <exception cref="T:System.ArgumentException">Throws when <paramref name="rawName"/> is null or empty.</exception>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="stepInvocation"/> or <paramref name="parameters"/> is null.</exception>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.StepDescriptor.#ctor(System.String,System.Func{System.Object,System.Object[],System.Threading.Tasks.Task},LightBDD.Core.Extensibility.ParameterDescriptor[])">
+            <summary>
+            Constructor allowing to specify name, step invocation function and step parameters.
+            The <see cref="P:LightBDD.Core.Extensibility.StepDescriptor.PredefinedStepType"/> is set to <c>null</c>.
+            </summary>
+            <param name="rawName">Step raw name.</param>
+            <param name="stepInvocation">Step invocation function.</param>
+            <param name="parameters">Step invocation function parameters.</param>
+            <exception cref="T:System.ArgumentException">Throws when <paramref name="rawName"/> is null or empty.</exception>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="stepInvocation"/> or <paramref name="parameters"/> is null.</exception>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.StepDescriptor.RawName">
+            <summary>
+            Returns step raw name.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.StepDescriptor.PredefinedStepType">
+            <summary>
+            Returns predefined step type.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.StepDescriptor.StepInvocation">
+            <summary>
+            Returns step invocation function accepting scenario context object configured with <see cref="M:LightBDD.Core.Extensibility.IScenarioRunner.WithContext(System.Func{System.Object})"/>() method and step parameters.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.StepDescriptor.Parameters">
+            <summary>
+            Returns step parameter descriptors.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.Execution.IExecutionExtensions">
+            <summary>
+            Interface specifying extensions that should be used by LightBDD.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.Execution.IExecutionExtensions.ScenarioExecutionExtensions">
+            <summary>
+            Collection of scenario execution extensions.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Extensibility.Execution.IExecutionExtensions.StepExecutionExtensions">
+            <summary>
+            Collection of step execution extensions.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.Execution.IScenarioExecutionExtension">
+            <summary>
+            Interface describing scenario execution extension that can be used by LightBDD to decorate scenario execution.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.Execution.IScenarioExecutionExtension.ExecuteAsync(LightBDD.Core.Metadata.IScenarioInfo,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Method allowing to decorate scenario invocation specified by <paramref name="scenarioInvocation"/>.
+            </summary>
+            <param name="scenario">Scenario that is being executed.</param>
+            <param name="scenarioInvocation">Invocation that should be called in the method body.</param>
+            <returns>Execution task.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Extensibility.Execution.IStepExecutionExtension">
+            <summary>
+            Interface describing step execution extension that can be used by LightBDD to decorate step execution.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Extensibility.Execution.IStepExecutionExtension.ExecuteAsync(LightBDD.Core.Execution.IStep,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Method allowing to decorate step invocation specified by <paramref name="stepInvocation"/>.
+            </summary>
+            <param name="step">Step that is being executed.</param>
+            <param name="stepInvocation">Invocation that should be called in the method body.</param>
+            <returns>Execution task.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Formatting.INameFormatter">
+            <summary>
+            Interface allowing to format name into readable text.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.INameFormatter.FormatName(System.String)">
+            <summary>
+            Formats provided name into readable text.
+            </summary>
+            <param name="name">Name to format.</param>
+            <returns>Formatted name.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Formatting.TimeFormatter">
+            <summary>
+            Extension methods for formatting TimeSpan values.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.TimeFormatter.FormatPretty(System.Nullable{System.TimeSpan})">
+            <summary>
+            Formats given value if provided or returns empty string.
+            
+            This method returns up to 2 most meaningful time components of given time, to make it most readable.
+            Maximal supported time component is 'day', while the minimal is 'millisecond'.
+            TimeSpan value being less than 1ms but larger than 0 would be presented as &lt;1ms. 
+            
+            Example values:
+            <list type="bullet">
+            <item><description>1d 12h</description></item>
+            <item><description>5h</description></item>
+            <item><description>5m 02s</description></item>
+            <item><description>2s 527ms</description></item>
+            <item><description>&lt;1ms</description></item>
+            <item><description>0ms</description></item>
+            </list>
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.TimeFormatter.FormatPretty(System.TimeSpan)">
+            <summary>
+            This method returns up to 2 most meaningful time components of given time, to make it most readable.
+            Maximal supported time component is 'day', while the minimal is 'millisecond'.
+            TimeSpan value being less than 1ms but larger than 0 would be presented as &lt;1ms. 
+            
+            Example values:
+            <list type="bullet">
+            <item><description>1d 12h</description></item>
+            <item><description>5h</description></item>
+            <item><description>5m 02s</description></item>
+            <item><description>2s 527ms</description></item>
+            <item><description>&lt;1ms</description></item>
+            <item><description>0ms</description></item>
+            </list>
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Formatting.NameDecorators.INameDecorator">
+            <summary>
+            Interface allowing to decorate name.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.NameDecorators.INameDecorator.DecorateParameterValue(LightBDD.Core.Metadata.INameParameterInfo)">
+            <summary>
+            Decorates provided parameter.
+            </summary>
+            <param name="parameter">Parameter to decorate.</param>
+            <returns>Decorated parameter text.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.NameDecorators.INameDecorator.DecorateNameFormat(System.String)">
+            <summary>
+            Decorates name format.
+            </summary>
+            <param name="nameFormat">Name format to decorate.</param>
+            <returns>Decorated text.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Formatting.NameDecorators.IStepNameDecorator">
+            <summary>
+            Interface decorating step name.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.NameDecorators.IStepNameDecorator.DecorateStepTypeName(LightBDD.Core.Metadata.IStepTypeNameInfo)">
+            <summary>
+            Decorates step type name.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Formatting.NameDecorators.StepNameDecorators">
+            <summary>
+            Class providing step name decorator instances.
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Formatting.NameDecorators.StepNameDecorators.Default">
+            <summary>
+            Default step name decorator, where:
+            * step type is returned intact if not null, or string.Empty is returned,
+            * parameter value is returned intact if not null, or string.Empty is returned,
+            * name format is returned intact if not null, or string.Empty is returned.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Formatting.Parameters.ParameterFormatterAttribute">
+            <summary>
+            Parameter formatter attribute, allowing to define custom step parameter formatting method.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Formatting.Parameters.ParameterFormatterAttribute.Format(System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Formats given <paramref name="parameter"/> value using <paramref name="culture"/>.
+            </summary>
+            <param name="culture">Culture used in formatting.</param>
+            <param name="parameter">Parameter to format.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.IFeatureInfo">
+            <summary>
+            Interface describing feature metadata.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IFeatureInfo.Name">
+            <summary>
+            Returns feature name.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IFeatureInfo.Labels">
+            <summary>
+            Returns feature labels or empty collection if none provided.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IFeatureInfo.Description">
+            <summary>
+            Returns feature description or <c>null</c> if none provided.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.INameInfo">
+            <summary>
+            Interface describing name metadata.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Metadata.INameInfo.ToString">
+            <summary>
+            Formats name using <see cref="F:LightBDD.Core.Formatting.NameDecorators.StepNameDecorators.Default"/> step name decorator.
+            </summary>
+            <returns>Formatted name.</returns>
+        </member>
+        <member name="M:LightBDD.Core.Metadata.INameInfo.Format(LightBDD.Core.Formatting.NameDecorators.INameDecorator)">
+            <summary>
+            Formats name using provided decorator.
+            </summary>
+            <param name="decorator">Decorator.</param>
+            <returns>Formatted name.</returns>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.INameInfo.NameFormat">
+            <summary>
+            Returns name format.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.INameInfo.Parameters">
+            <summary>
+            Returns name parameters used in formatting or empty collection if name is not parameterized.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.INameParameterInfo">
+            <summary>
+            Interface describing name parameter metadata.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.INameParameterInfo.IsEvaluated">
+            <summary>
+            Returns <c>true</c> if parameter is already evaluated or <c>false</c> if not.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.INameParameterInfo.FormattedValue">
+            <summary>
+            Returns formatted parameter value.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.IScenarioInfo">
+            <summary>
+            Interface describing scenario metadata.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IScenarioInfo.Name">
+            <summary>
+            Returns scenario name.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IScenarioInfo.Labels">
+            <summary>
+            Returns scenario labels or empty collection if none specified.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IScenarioInfo.Categories">
+            <summary>
+            Returns scenario categories or empty collection if none specified.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.IStepInfo">
+            <summary>
+            Interface describing scenario step metadata.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IStepInfo.Name">
+            <summary>
+            Returns step name.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IStepInfo.Number">
+            <summary>
+            Returns step number in all steps belonging to scenario.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IStepInfo.Total">
+            <summary>
+            Returns total number of steps in scenario.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.IStepNameInfo">
+            <summary>
+            Interface describing step name metadata.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Metadata.IStepNameInfo.Format(LightBDD.Core.Formatting.NameDecorators.IStepNameDecorator)">
+            <summary>
+            Formats step name using provided decorator.
+            </summary>
+            <param name="decorator">Decorator.</param>
+            <returns>Formatted name.</returns>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IStepNameInfo.StepTypeName">
+            <summary>
+            Returns step type name (may be null).
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Metadata.IStepTypeNameInfo">
+            <summary>
+            Interface describing step type name metadata.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Metadata.IStepTypeNameInfo.ToString">
+            <summary>
+            Returns <see cref="P:LightBDD.Core.Metadata.IStepTypeNameInfo.Name"/> value.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IStepTypeNameInfo.Name">
+            <summary>
+            Returns normalized step type name.
+            If consecutive steps are of the same type (like: GIVEN, GIVEN, GIVEN, WHEN, WHEN), the name of all except first one will be normalized with value of <see cref="F:LightBDD.Core.Configuration.StepTypeConfiguration.DefaultRepeatedStepReplacement"/> (producing steps like: GIVEN, AND, AND, WHEN, AND).
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Metadata.IStepTypeNameInfo.OriginalName">
+            <summary>
+            Returns original step type name (before normalization).
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Notification.IFeatureProgressNotifier">
+            <summary>
+            Feature progress notification interface.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IFeatureProgressNotifier.NotifyFeatureStart(LightBDD.Core.Metadata.IFeatureInfo)">
+            <summary>
+            Notifies that feature has started.
+            </summary>
+            <param name="feature">Feature info.</param>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IFeatureProgressNotifier.NotifyFeatureFinished(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Notifies that feature has finished.
+            </summary>
+            <param name="feature">Feature result.</param>
+        </member>
+        <member name="T:LightBDD.Core.Notification.IScenarioProgressNotifier">
+            <summary>
+            Scenario progress notification interface.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IScenarioProgressNotifier.NotifyScenarioStart(LightBDD.Core.Metadata.IScenarioInfo)">
+            <summary>
+            Notifies that scenario has started.
+            </summary>
+            <param name="scenario">Scenario info.</param>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IScenarioProgressNotifier.NotifyScenarioFinished(LightBDD.Core.Results.IScenarioResult)">
+            <summary>
+            Notifies that scenario has finished.
+            </summary>
+            <param name="scenario">Scenario result.</param>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IScenarioProgressNotifier.NotifyStepStart(LightBDD.Core.Metadata.IStepInfo)">
+            <summary>
+            Notifies that step has started.
+            </summary>
+            <param name="step">Step info.</param>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IScenarioProgressNotifier.NotifyStepFinished(LightBDD.Core.Results.IStepResult)">
+            <summary>
+            Notifies that step has finished.
+            </summary>
+            <param name="step">Step result.</param>
+        </member>
+        <member name="M:LightBDD.Core.Notification.IScenarioProgressNotifier.NotifyStepComment(LightBDD.Core.Metadata.IStepInfo,System.String)">
+            <summary>
+            Notifies that step has been commented.
+            </summary>
+            <param name="step">Step info.</param>
+            <param name="comment">Comment.</param>
+        </member>
+        <member name="T:LightBDD.Core.Reporting.FeatureReportGenerator">
+            <summary>
+            Class allowing to generate and save reports for executed features.
+            It supports multiple <see cref="T:LightBDD.Core.Reporting.IReportWriter"/> instances that can be specified in constructor.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Reporting.FeatureReportGenerator.#ctor(LightBDD.Core.Reporting.IReportWriter[])">
+            <summary>
+            Constructor configuring report generator with <paramref name="writers"/> that would be used to write reports on generator disposal.
+            </summary>
+            <param name="writers"></param>
+        </member>
+        <member name="M:LightBDD.Core.Reporting.FeatureReportGenerator.Aggregate(LightBDD.Core.Results.IFeatureResult)">
+            <summary>
+            Aggregates given feature result.
+            </summary>
+            <param name="featureResult">Feature result to aggregate.</param>
+        </member>
+        <member name="M:LightBDD.Core.Reporting.FeatureReportGenerator.Dispose">
+            <summary>
+            Writes all aggregated results and disposes the object.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Reporting.IReportWriter">
+            <summary>
+            Interface for feature result summary writers.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Reporting.IReportWriter.Save(LightBDD.Core.Results.IFeatureResult[])">
+            <summary>
+            Saves feature <c>results</c>.
+            </summary>
+            <param name="results">Results to save.</param>
+        </member>
+        <member name="T:LightBDD.Core.Results.ExecutionStatus">
+            <summary>
+            Represents status of test / scenario.
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Results.ExecutionStatus.NotRun">
+            <summary>
+            Not run yet
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Results.ExecutionStatus.Passed">
+            <summary>
+            Passed
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Results.ExecutionStatus.Bypassed">
+            <summary>
+            Bypassed
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Results.ExecutionStatus.Ignored">
+            <summary>
+            Ignored / skipped
+            </summary>
+        </member>
+        <member name="F:LightBDD.Core.Results.ExecutionStatus.Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Results.ExecutionTime">
+            <summary>
+            Class describing execution time.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Results.ExecutionTime.#ctor(System.DateTimeOffset,System.TimeSpan)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="start">Execution start.</param>
+            <param name="duration">Execution duration.</param>
+        </member>
+        <member name="P:LightBDD.Core.Results.ExecutionTime.Start">
+            <summary>
+            Returns execution start.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.ExecutionTime.Duration">
+            <summary>
+            Returns execution duration.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.ExecutionTime.End">
+            <summary>
+            Returns execution end.
+            </summary>
+        </member>
+        <member name="T:LightBDD.Core.Results.IFeatureResult">
+            <summary>
+            Interface describing feature test result.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IFeatureResult.Info">
+            <summary>
+            Returns feature details.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Results.IFeatureResult.GetScenarios">
+            <summary>
+            Returns results of scenarios executed within this feature.
+            </summary>
+            <returns>Collection of scenario results.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Results.IScenarioResult">
+            <summary>
+            Interface describing scenario test result.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IScenarioResult.Info">
+            <summary>
+            Returns scenario details.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IScenarioResult.Status">
+            <summary>
+            Returns scenario execution status.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IScenarioResult.StatusDetails">
+            <summary>
+            Returns status details.
+            It will contain details for all bypassed, ignored or failed steps.
+            It may be null if no additional details are provided.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IScenarioResult.ExecutionTime">
+            <summary>
+            Returns scenario execution time.
+            </summary>
+        </member>
+        <member name="M:LightBDD.Core.Results.IScenarioResult.GetSteps">
+            <summary>
+            Returns results of steps executed within this scenario.
+            </summary>
+            <returns>Collection of step results.</returns>
+        </member>
+        <member name="T:LightBDD.Core.Results.IStepResult">
+            <summary>
+            Interface describing step test result.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IStepResult.Info">
+            <summary>
+            Returns step details.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IStepResult.Status">
+            <summary>
+            Returns step execution status.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IStepResult.StatusDetails">
+            <summary>
+            Returns status details that contains reason for bypassed, ignored or failed steps.
+            It may be null if no additional details are provided.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IStepResult.ExecutionTime">
+            <summary>
+            Returns step execution time.
+            </summary>
+        </member>
+        <member name="P:LightBDD.Core.Results.IStepResult.Comments">
+            <summary>
+            Returns step comments or empty collection if no comments were made.
+            </summary>
+        </member>
+    </members>
+</doc>

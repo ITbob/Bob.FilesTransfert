@@ -1,0 +1,6 @@
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfet.PacketMaker\obj\Debug\Bob.FilesTransfet.PacketMaker.csproj.CoreCompileInputs.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfet.PacketMaker\obj\Debug\Bob.FilesTransfet.PacketMaker.csprojResolveAssemblyReference.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfet.PacketMaker\bin\Debug\Bob.FilesTransfet.PacketHandler.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfet.PacketMaker\bin\Debug\Bob.FilesTransfet.PacketHandler.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfet.PacketMaker\obj\Debug\Bob.FilesTransfet.PacketHandler.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfet.PacketMaker\obj\Debug\Bob.FilesTransfet.PacketHandler.pdb

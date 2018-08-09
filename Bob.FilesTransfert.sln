@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.FilesTransfert", "Bob.FilesTransfert\Bob.FilesTransfert.csproj", "{1D1B4AA1-C22B-4709-A93F-67CFBAAE305B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.FilesTransfert.ComApi", "Backend\Bob.FilesTransfert.ComApi\Bob.FilesTransfert.ComApi.csproj", "{F93B0A5B-BA9B-4C16-B6D7-8C56B97966AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.FilesTransfert.Packet", "Backend\Bob.FilesTransfert.Packet\Bob.FilesTransfert.Packet.csproj", "{90D9696E-DB68-4948-8B65-9F12BF7D4089}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{7198229E-5A6A-4E62-A333-702C3A2A95AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{8620FA93-38E3-4753-AF6E-D77BC711BECB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.FilesTransfert.ComApi.Test", "Bob.FilesTransfert.ComApi.Test\Bob.FilesTransfert.ComApi.Test.csproj", "{D04AEE1A-8C2F-409A-9737-EE6EA404958D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.FilesTransfert.Packet.Test", "Bob.FilesTransfert.Packet.Test\Bob.FilesTransfert.Packet.Test.csproj", "{FE698645-99FA-4AB0-9441-8C39AA950E15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +27,32 @@ Global
 		{1D1B4AA1-C22B-4709-A93F-67CFBAAE305B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D1B4AA1-C22B-4709-A93F-67CFBAAE305B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D1B4AA1-C22B-4709-A93F-67CFBAAE305B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93B0A5B-BA9B-4C16-B6D7-8C56B97966AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93B0A5B-BA9B-4C16-B6D7-8C56B97966AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93B0A5B-BA9B-4C16-B6D7-8C56B97966AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93B0A5B-BA9B-4C16-B6D7-8C56B97966AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D9696E-DB68-4948-8B65-9F12BF7D4089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D9696E-DB68-4948-8B65-9F12BF7D4089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D9696E-DB68-4948-8B65-9F12BF7D4089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D9696E-DB68-4948-8B65-9F12BF7D4089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D04AEE1A-8C2F-409A-9737-EE6EA404958D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D04AEE1A-8C2F-409A-9737-EE6EA404958D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D04AEE1A-8C2F-409A-9737-EE6EA404958D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D04AEE1A-8C2F-409A-9737-EE6EA404958D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE698645-99FA-4AB0-9441-8C39AA950E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE698645-99FA-4AB0-9441-8C39AA950E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE698645-99FA-4AB0-9441-8C39AA950E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE698645-99FA-4AB0-9441-8C39AA950E15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F93B0A5B-BA9B-4C16-B6D7-8C56B97966AC} = {7198229E-5A6A-4E62-A333-702C3A2A95AF}
+		{90D9696E-DB68-4948-8B65-9F12BF7D4089} = {7198229E-5A6A-4E62-A333-702C3A2A95AF}
+		{8620FA93-38E3-4753-AF6E-D77BC711BECB} = {7198229E-5A6A-4E62-A333-702C3A2A95AF}
+		{D04AEE1A-8C2F-409A-9737-EE6EA404958D} = {8620FA93-38E3-4753-AF6E-D77BC711BECB}
+		{FE698645-99FA-4AB0-9441-8C39AA950E15} = {8620FA93-38E3-4753-AF6E-D77BC711BECB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D40AB8EA-3209-4B9C-8311-CD30D4F857D9}
