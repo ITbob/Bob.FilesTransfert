@@ -1,0 +1,6 @@
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Backend\Bob.FilesTransfert.Packet\bin\Debug\Bob.FilesTransfet.PacketHandler.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Backend\Bob.FilesTransfert.Packet\bin\Debug\Bob.FilesTransfet.PacketHandler.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Backend\Bob.FilesTransfert.Packet\obj\Debug\Bob.FilesTransfert.Packet.csprojResolveAssemblyReference.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Backend\Bob.FilesTransfert.Packet\obj\Debug\Bob.FilesTransfert.Packet.csproj.CoreCompileInputs.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Backend\Bob.FilesTransfert.Packet\obj\Debug\Bob.FilesTransfet.PacketHandler.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Backend\Bob.FilesTransfert.Packet\obj\Debug\Bob.FilesTransfet.PacketHandler.pdb

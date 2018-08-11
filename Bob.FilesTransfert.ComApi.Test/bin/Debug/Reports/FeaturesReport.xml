@@ -1,53 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TestResults>
-  <Summary TestExecutionStart="2018-08-09T17:36:29.7191508Z" TestExecutionEnd="2018-08-09T17:36:34.7580497Z" TestExecutionTime="PT5.0388989S">
-    <Features Count="1" />
-    <Scenarios Count="2" Passed="2" Bypassed="0" Failed="0" Ignored="0" />
-    <Steps Count="10" Passed="10" Bypassed="0" Failed="0" Ignored="0" NotRun="0" />
+  <Summary TestExecutionStart="2018-08-11T10:42:11.296948Z" TestExecutionEnd="2018-08-11T10:42:11.296948Z" TestExecutionTime="PT0S">
+    <Features Count="0" />
+    <Scenarios Count="0" Passed="0" Bypassed="0" Failed="0" Ignored="0" />
+    <Steps Count="0" Passed="0" Bypassed="0" Failed="0" Ignored="0" NotRun="0" />
   </Summary>
-  <Feature Name="TcpCommunicants Features">
-    <Description>Send messages between two communicants 'receiver' and 'sender'</Description>
-    <Scenario Status="Passed" Name="Handle communication with filename packet" ExecutionStart="2018-08-09T17:36:29.7191508Z" ExecutionTime="PT2.3125325S">
-      <Label Name="send/receive filename  packet " />
-      <Step Status="Passed" Number="1" Name="GIVEN Set couple [senderPort: &quot;8177&quot;] [receiverPort: &quot;8178&quot;]" ExecutionStart="2018-08-09T17:36:29.7390978Z" ExecutionTime="PT0.0514993S">
-        <StepName StepType="GIVEN" Format="Set couple [senderPort: &quot;{0}&quot;] [receiverPort: &quot;{1}&quot;]">
-          <Parameter IsEvaluated="true">8177</Parameter>
-          <Parameter IsEvaluated="true">8178</Parameter>
-        </StepName>
-      </Step>
-      <Step Status="Passed" Number="2" Name="THEN Send filename packet" ExecutionStart="2018-08-09T17:36:29.8079143Z" ExecutionTime="PT0.006652S">
-        <StepName StepType="THEN" Format="Send filename packet" />
-      </Step>
-      <Step Status="Passed" Number="3" Name="AND Sleep 200ms" ExecutionStart="2018-08-09T17:36:29.8148939Z" ExecutionTime="PT0.2004469S">
-        <StepName StepType="AND" Format="Sleep 200ms" />
-      </Step>
-      <Step Status="Passed" Number="4" Name="AND Receive filename packet" ExecutionStart="2018-08-09T17:36:30.0153598Z" ExecutionTime="PT0.0128098S">
-        <StepName StepType="AND" Format="Receive filename packet" />
-      </Step>
-      <Step Status="Passed" Number="5" Name="AND Close couple" ExecutionStart="2018-08-09T17:36:30.0283419Z" ExecutionTime="PT2.003755S">
-        <StepName StepType="AND" Format="Close couple" />
-      </Step>
-    </Scenario>
-    <Scenario Status="Passed" Name="Handle communication with simple message" ExecutionStart="2018-08-09T17:36:32.0509533Z" ExecutionTime="PT2.7070964S">
-      <Label Name="send/receive basic message" />
-      <Step Status="Passed" Number="1" Name="GIVEN Set couple [senderPort: &quot;8172&quot;] [receiverPort: &quot;8173&quot;]" ExecutionStart="2018-08-09T17:36:32.0539447Z" ExecutionTime="PT0.502506S">
-        <StepName StepType="GIVEN" Format="Set couple [senderPort: &quot;{0}&quot;] [receiverPort: &quot;{1}&quot;]">
-          <Parameter IsEvaluated="true">8172</Parameter>
-          <Parameter IsEvaluated="true">8173</Parameter>
-        </StepName>
-      </Step>
-      <Step Status="Passed" Number="2" Name="THEN Send simple message" ExecutionStart="2018-08-09T17:36:32.556604Z" ExecutionTime="PT0.0003235S">
-        <StepName StepType="THEN" Format="Send simple message" />
-      </Step>
-      <Step Status="Passed" Number="3" Name="AND Sleep 200ms" ExecutionStart="2018-08-09T17:36:32.556604Z" ExecutionTime="PT0.2009648S">
-        <StepName StepType="AND" Format="Sleep 200ms" />
-      </Step>
-      <Step Status="Passed" Number="4" Name="AND Receive simple message" ExecutionStart="2018-08-09T17:36:32.7580663Z" ExecutionTime="PT0.0001797S">
-        <StepName StepType="AND" Format="Receive simple message" />
-      </Step>
-      <Step Status="Passed" Number="5" Name="AND Close couple" ExecutionStart="2018-08-09T17:36:32.7580663Z" ExecutionTime="PT2.0003875S">
-        <StepName StepType="AND" Format="Close couple" />
-      </Step>
-    </Scenario>
-  </Feature>
 </TestResults>

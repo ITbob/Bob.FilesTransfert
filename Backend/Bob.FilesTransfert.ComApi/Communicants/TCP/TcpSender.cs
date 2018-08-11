@@ -13,10 +13,10 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
     public class TcpSender: IByteSender
     {
         private Socket _socket;
-        private SocketCommunicantInfo _senderInfo;
-        private SocketCommunicantInfo _receiverInfo;
-        private IPEndPoint _receiver;
-        public TcpSender(SocketCommunicantInfo senderInfo, SocketCommunicantInfo receiverInfo)
+        private IPEndPoint _senderInfo;
+        private IPEndPoint _receiverInfo;
+
+        public TcpSender(IPEndPoint senderInfo, IPEndPoint receiverInfo)
         {
             this._socket = new Socket(
                 SocketType.Stream, //not aware of that, have to take a look
@@ -24,6 +24,9 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
 
             this._senderInfo = senderInfo;
             this._receiverInfo = receiverInfo;
+            this._socket.LingerState = new LingerOption(false,0);
+            this._socket.LingerState.Enabled = false;
+            this._socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         }
 
         public void Connect()
@@ -32,9 +35,8 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
             {
                 throw new ApplicationException("Sockect is already connected");
             }
-            this._receiver = new IPEndPoint(this._receiverInfo.Ip, this._receiverInfo.Port);
-            this._socket.Bind(new IPEndPoint(this._senderInfo.Ip, this._senderInfo.Port));
-            this._socket.Connect(this._receiver);
+            this._socket.Bind(new IPEndPoint(this._senderInfo.Address, this._senderInfo.Port));
+            this._socket.Connect(this._receiverInfo);
         }
 
         public Boolean IsConnected()
@@ -48,8 +50,17 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
             {
                 throw new ApplicationException("Sockect is not connected.");
             }
+            try
+            {
+                //this._socket.Shutdown(SocketShutdown.Both);
+                //this._socket.Disconnect(true);
+                this._socket.Close();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
 
-            this._socket.Close();
         }
 
         public void Send(byte[] data)
@@ -64,8 +75,8 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
                 throw new ApplicationException("socket is not connected");
             }
 
-            var count = this._socket.SendTo(data,0,data.Length,SocketFlags.None, this._receiver);
-            Debug.WriteLine($"Send: {count} {data}");
+            var count = this._socket.SendTo(data,0,data.Length,SocketFlags.None, this._receiverInfo);
+            //Debug.WriteLine($"Sent: {count} data: {Encoding.ASCII.GetString(data)}");
         }
     }
 }

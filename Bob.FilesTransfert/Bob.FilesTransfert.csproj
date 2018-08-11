@@ -45,14 +45,115 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Box\ErrorDialogBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Box\ErrorDialogBox.Designer.cs">
+      <DependentUpon>ErrorDialogBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ClientFormController.cs" />
+    <Compile Include="Client\ClientMainPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\ClientMainPanel.Designer.cs">
+      <DependentUpon>ClientMainPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\FileInfo.cs" />
+    <Compile Include="Client\SubPanel\ConnectionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SubPanel\ConnectionPanel.Designer.cs">
+      <DependentUpon>ConnectionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SubPanel\LeftSide\ClientContentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SubPanel\LeftSide\ClientContentPanel.Designer.cs">
+      <DependentUpon>ClientContentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Client\ClientForm.Designer.cs">
+      <DependentUpon>ClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SubPanel\LeftSide\PathPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SubPanel\LeftSide\PathPanel.Designer.cs">
+      <DependentUpon>PathPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SubPanel\LeftSide\SendFilePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SubPanel\LeftSide\SendFilePanel.Designer.cs">
+      <DependentUpon>SendFilePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SubPanel\RightSide\VisualServerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SubPanel\RightSide\VisualServerPanel.Designer.cs">
+      <DependentUpon>VisualServerPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Option\OptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Option\OptionForm.Designer.cs">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Option\OptionFormController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider.cs" />
+    <Compile Include="Server\ConfigurationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Server\ConfigurationPanel.Designer.cs">
+      <DependentUpon>ConfigurationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Server\ServerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Server\ServerForm.Designer.cs">
+      <DependentUpon>ServerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Server\ServerFormController.cs" />
+    <EmbeddedResource Include="Box\ErrorDialogBox.resx">
+      <DependentUpon>ErrorDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\ClientMainPanel.resx">
+      <DependentUpon>ClientMainPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SubPanel\ConnectionPanel.resx">
+      <DependentUpon>ConnectionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SubPanel\LeftSide\ClientContentPanel.resx">
+      <DependentUpon>ClientContentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\ClientForm.resx">
+      <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SubPanel\LeftSide\PathPanel.resx">
+      <DependentUpon>PathPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SubPanel\LeftSide\SendFilePanel.resx">
+      <DependentUpon>SendFilePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SubPanel\RightSide\VisualServerPanel.resx">
+      <DependentUpon>VisualServerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Option\OptionForm.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +164,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Server\ConfigurationPanel.resx">
+      <DependentUpon>ConfigurationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Server\ServerForm.resx">
+      <DependentUpon>ServerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -75,6 +182,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Backend\Bob.FilesTransfert.ComApi\Bob.FilesTransfert.ComApi.csproj">
+      <Project>{f93b0a5b-ba9b-4c16-b6d7-8c56b97966ac}</Project>
+      <Name>Bob.FilesTransfert.ComApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bob.FilesTransfert.ComApi.Service\Bob.FilesTransfert.ComApi.Service.csproj">
+      <Project>{93d0c7f9-9edd-4cb9-a5fc-ed2372a198ce}</Project>
+      <Name>Bob.FilesTransfert.ComApi.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bob.FilesTransfert.Service\Bob.FilesTransfert.Service.csproj">
+      <Project>{baee419a-3452-43aa-b93d-10a880b28e94}</Project>
+      <Name>Bob.FilesTransfert.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

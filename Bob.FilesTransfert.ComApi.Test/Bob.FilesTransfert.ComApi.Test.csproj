@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileSender_Features.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TcpCommunicants_Features.cs" />
     <Compile Include="TcpCommunicants_Scenarios.cs" />

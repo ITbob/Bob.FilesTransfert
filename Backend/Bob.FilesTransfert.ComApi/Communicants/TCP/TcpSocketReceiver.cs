@@ -13,13 +13,13 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
 {
     public class TcpSocketReceiver
     {
-        private SocketCommunicantInfo _info;
+        private IPEndPoint _info;
         private Socket _socket;
         private Object syncObject = new Object();
         private Queue<Byte> Bytes { get; set; } = new Queue<byte>();
         private CancellationTokenSource CancellationToken;
 
-        public TcpSocketReceiver(SocketCommunicantInfo info)
+        public TcpSocketReceiver(IPEndPoint info)
         {
             this._info = info;
             this._socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
@@ -45,8 +45,7 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
                 throw new ApplicationException("Sockect is already created");
             }
 
-
-            this._socket.Bind(new IPEndPoint(this._info.Ip, this._info.Port));
+            this._socket.Bind(this._info);
             this._socket.Listen(100);
             this._socket.BeginAccept((e) => this.AsyncAccept(e), this._socket);
 

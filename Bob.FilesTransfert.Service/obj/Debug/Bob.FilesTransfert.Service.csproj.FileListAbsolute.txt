@@ -1,0 +1,6 @@
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Service\bin\Debug\Bob.FilesTransfert.Service.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Service\bin\Debug\Bob.FilesTransfert.Service.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Service\obj\Debug\Bob.FilesTransfert.Service.csprojResolveAssemblyReference.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Service\obj\Debug\Bob.FilesTransfert.Service.csproj.CoreCompileInputs.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Service\obj\Debug\Bob.FilesTransfert.Service.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.Service\obj\Debug\Bob.FilesTransfert.Service.pdb

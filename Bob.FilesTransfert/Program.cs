@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Bob.Transferts;
+using Bob.Transferts.Client;
+using Bob.Transferts.Option;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +19,13 @@ namespace Bob.FileTransfert
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Provider.Init();
+
+            var view = new OptionForm();
+            var option = new OptionFormController(view);
+
+            Application.Run(view);
         }
     }
 }

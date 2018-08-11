@@ -40,12 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Maker\FileNamePacketMaker.cs" />
-    <Compile Include="Maker\FilePacketMaker.cs" />
-    <Compile Include="Maker\IPacketMaker.cs" />
+    <Compile Include="Maker\PacketMaker.cs" />
+    <Compile Include="Maker\Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolver\PacketResolver.cs" />
-    <Compile Include="Resolver\IPacketResolver.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

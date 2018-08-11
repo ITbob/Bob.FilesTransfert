@@ -1,0 +1,13 @@
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfert.ComApi.Service.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfert.ComApi.Service.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfert.ComApi.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfert.Service.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfet.PacketHandler.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfert.ComApi.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfert.Service.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\bin\Debug\Bob.FilesTransfet.PacketHandler.pdb
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\obj\Debug\Bob.FilesTransfert.ComApi.Service.csprojResolveAssemblyReference.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\obj\Debug\Bob.FilesTransfert.ComApi.Service.csproj.CoreCompileInputs.cache
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\obj\Debug\Bob.FilesTransfert.ComApi.Service.csproj.CopyComplete
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\obj\Debug\Bob.FilesTransfert.ComApi.Service.dll
+C:\Users\Freddy\source\repos\Bob.FileTransfert\Bob.FilesTransfert.ComApi.Service\obj\Debug\Bob.FilesTransfert.ComApi.Service.pdb
