@@ -16,11 +16,10 @@ namespace Bob.FilesTransfert.ComApi
 
         //ugly
         public static Header RequestFolder { get; } = new Header() { Content = 0x04 };
-        public static Header RequestFolderEnd { get; } = new Header() { Content = 0x05 };
 
         public static Header FolderFile { get; } = new Header() { Content = 0x06 };
         public static Header FolderFileEnd { get; } = new Header() { Content = 0x07 };
-        public static Header FolderFileFinalEnd { get; } = new Header() { Content = 0x08 };
+        //public static Header FolderFileFinalEnd { get; } = new Header() { Content = 0x08 };
 
     }
 }

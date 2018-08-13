@@ -42,9 +42,9 @@
   <ItemGroup>
     <Compile Include="Communicants\IBytesPacketReceiver.cs" />
     <Compile Include="Communicants\ISender.cs" />
-    <Compile Include="Sender\Folder\FolderInfoSender.cs" />
-    <Compile Include="Handler\FolderAckHandler.cs" />
-    <Compile Include="Handler\FolderResquetHandler.cs" />
+    <Compile Include="Communicants\TCP\PacketContext.cs" />
+    <Compile Include="Sender\Directory\DirectoryResquestSender.cs" />
+    <Compile Include="Handler\DirectoryRequestHandler.cs" />
     <Compile Include="Handler\IPacketHandler.cs" />
     <Compile Include="HeaderContainer.cs" />
     <Compile Include="PacketDispatcher.cs" />

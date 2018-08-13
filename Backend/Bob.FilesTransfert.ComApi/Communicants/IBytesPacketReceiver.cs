@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bob.FilesTransfert.ComApi.Communicants.TCP;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,6 @@ namespace Bob.FilesTransfert.ComApi.Communicants
         Boolean Listen();
         Boolean IsListening();
         Boolean Close();
-        EventHandler<Byte[]> ReceivedData { get; set; }
+        EventHandler<PacketContext> ReceivedData { get; set; }
     }
 }

@@ -32,8 +32,6 @@ namespace Bob.Transferts.Client
 
             this.View.connectionPanel1.portTextBox.Text 
                 = $"{Convert.ToInt32(this.View.connectionPanel1.portTextBox.Text)+count}";
-            this.View.connectionPanel1.receiveClientPortTextBox.Text 
-                = $"{Convert.ToInt32(this.View.connectionPanel1.receiveClientPortTextBox.Text)+count}";
 
             this.SetConnected(false);
         }
@@ -59,9 +57,23 @@ namespace Bob.Transferts.Client
             Task.Run(() => this.Handler.Close());
         }
 
-        private void RefreshButton_Click(object sender, EventArgs e)
+        private async void RefreshButton_Click(object sender, EventArgs e)
         {
-            this.Handler.AskFolderInfo();
+            this.View.clientMainPanel1.visualServerPanel1.refreshButton.Enabled = false;
+            var result = await Task.Run(() => this.Handler.GetServerDirectory());
+            this.View.clientMainPanel1.visualServerPanel1.refreshButton.Enabled = true;
+
+            var files = new BindingList<FileItem>();
+            
+            foreach (var filename in result)
+            {
+                files.Add(new FileItem()
+                {
+                    Filename = filename
+                });
+            }
+
+            this.View.clientMainPanel1.visualServerPanel1.dataGridView1.DataSource = files;
         }
 
         private void SnedButton_Click(object sender, EventArgs e)
@@ -124,7 +136,6 @@ namespace Bob.Transferts.Client
             {
                 var clientIp = SocketHelper.GetIPAddress();
                 var clientPort = Convert.ToInt32(this.View.connectionPanel1.portTextBox.Text);
-                var folderclientPort = Convert.ToInt32(this.View.connectionPanel1.receiveClientPortTextBox.Text);
 
                 var serverIp = SocketHelper.GetIPAddress();
                 var serverPort = Convert.ToInt32(this.View.connectionPanel1.serverPortTextbox.Text);
@@ -132,10 +143,8 @@ namespace Bob.Transferts.Client
 
                 this.Handler.Setup(
                     new IPEndPoint(clientIp, clientPort),
-                    new IPEndPoint(serverIp, serverPort),
-                    folderclientPort);
+                    new IPEndPoint(serverIp, serverPort));
 
-                this.Handler.ReceivedFiles += this.OnReceivedServerFiles;
                 this.SetConnected(true);
             }
             catch (Exception excep)
@@ -143,30 +152,6 @@ namespace Bob.Transferts.Client
                 var form = new ErrorDialogBox(excep.Message);
                 form.ShowDialog();
                 return;
-            }
-        }
-
-        public void OnReceivedServerFiles(Object obj, List<String> filenames)
-        {
-            var files = new BindingList<FileItem>();
-            foreach (var filename in filenames)
-            {
-                files.Add(new FileItem()
-                {
-                    Filename = filename
-                });
-            }
-            if (this.View.InvokeRequired)
-            {
-                Action act = () =>
-                {
-                    this.View.clientMainPanel1.visualServerPanel1.dataGridView1.DataSource = files;
-                };
-                this.View.Invoke(act);
-            }
-            else
-            {
-                this.View.clientMainPanel1.visualServerPanel1.dataGridView1.DataSource = files;
             }
         }
 

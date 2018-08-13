@@ -1,4 +1,5 @@
-﻿using Bob.FilesTransfert.ComApi.TCP.Communicants;
+﻿using Bob.FilesTransfert.ComApi.Communicants.TCP;
+using Bob.FilesTransfert.ComApi.TCP.Communicants;
 using Bob.FilesTransfet.PacketHandler.Maker;
 using LightBDD.NUnit2;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace Bob.FileTransfet.ComApi.Test
         private void Set_couple(
             Int32 senderPort, 
             Int32 receiverPort, 
-            Action<Object,Byte[]> func)
+            Action<Object,PacketContext> func)
         {
             var senderInfo = new IPEndPoint(SocketHelper.GetIPAddress(),senderPort);
             var receiverInfo = new IPEndPoint(SocketHelper.GetIPAddress(), receiverPort);
@@ -34,7 +35,7 @@ namespace Bob.FileTransfet.ComApi.Test
             this.Receiver.ReceivedData += ((o,e) => func(o,e));
         }
 
-        private void Unsubscrible(Action<Object, Byte[]> func)
+        private void Unsubscrible(Action<Object, PacketContext> func)
         {
             this.Receiver.ReceivedData -= ((o, e) => func(o, e));
             this._packets.Clear();
@@ -51,49 +52,10 @@ namespace Bob.FileTransfet.ComApi.Test
             Thread.Sleep(200);
         }
 
-        private void Send_simple_message()
-        {
-            this.Sender.Send(Encoding.ASCII.GetBytes("bob"));
-        }
-
-        private void Send_simple_long_message()
-        {
-            this.Sender.Send(
-                Encoding.ASCII.GetBytes("its a very very very long message that may provoke an issue."));
-        }
-
         private List<Byte[]> _packets = new List<Byte[]>();
-        private void OnReceivedPacket(Object obj, Byte[] packet)
+        private void OnReceivedPacket(Object obj, PacketContext packet)
         {
-            this._packets.Add(packet);
-        }
-
-        private void Check_simple_long_message()
-        {
-            var message = new List<Byte>();
-            foreach (var packet in this._packets)
-            {
-                foreach (var item in packet)
-                {
-                    message.Add(item);
-                }
-            }
-            var mes = Encoding.ASCII.GetString(message.ToArray());
-            Assert.AreEqual("its a very very very long message that may provoke an issue.", mes);
-        }
-
-        private void Check_basic_message()
-        {
-            var message = new List<Byte>();
-            foreach (var packet in this._packets)
-            {
-                foreach (var item in packet)
-                {
-                    message.Add(item);
-                }
-            }
-            var mes = Encoding.ASCII.GetString(message.ToArray());
-            Assert.AreEqual("bob", mes);
+            this._packets.Add(packet.CurrentPacket);
         }
 
         private void Send_filename_packet()
@@ -106,10 +68,8 @@ namespace Bob.FileTransfet.ComApi.Test
 
             var packets = PacketHelper.Frame(header, content);
 
-            foreach (var packet in packets)
-            {
-                Sender.Send(packet);
-            }
+            Sender.Send(packets);
+
         }
 
         private void Check_filename_packet()

@@ -18,8 +18,8 @@ namespace Bob.FilesTransfert.ComApi.Service
         private TcpPacketsReceiver _listener;
         private PacketDispatcher _dispatcher;
         private static readonly Int32 FolderPort = 7766;
-        private FolderResquetHandler _folderRequest;
-        private FileRequestHandler _fileRequest;
+        private Handler.DirectoryRequestHandler _folderRequest;
+        private DirectoryRequestHandler _fileRequest;
         public EventHandler<FileResult> ReceivedFile;
 
         public void OnReceivedFile(Object obj, FileResult fileResult)
@@ -39,11 +39,10 @@ namespace Bob.FilesTransfert.ComApi.Service
         public void Setup(IPEndPoint info)
         {
             this._listener = new TcpPacketsReceiver(info, 2);
-            this._fileRequest = new FileRequestHandler();
+            this._fileRequest = new DirectoryRequestHandler();
             this._fileRequest.ReceivedFile += OnReceivedFile;
 
-            this._folderRequest = new FolderResquetHandler(
-                new IPEndPoint(SocketHelper.GetIPAddress(), FolderPort));
+            this._folderRequest = new Handler.DirectoryRequestHandler();
 
             this._dispatcher = new PacketDispatcher(this._listener,
                 new List<IPacketHandler>
@@ -60,7 +59,6 @@ namespace Bob.FilesTransfert.ComApi.Service
             {
                 this._fileRequest.ReceivedFile -= OnReceivedFile;
                 this._listener.Close();
-                this._folderRequest.Close();
             }
             catch (Exception e)
             {

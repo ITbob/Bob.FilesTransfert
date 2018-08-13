@@ -1,4 +1,5 @@
 ﻿using Bob.FilesTransfert.ComApi.Communicants;
+using Bob.FilesTransfert.ComApi.Communicants.TCP;
 using Bob.FilesTransfert.ComApi.Handler;
 using Bob.FilesTransfet.PacketHandler.Maker;
 using System;
@@ -15,7 +16,7 @@ namespace Bob.FilesTransfert.ComApi
 {
     public class PacketDispatcher
     {
-        private ConcurrentQueue<Byte[]> _rawPackets = new ConcurrentQueue<Byte[]>();
+        private ConcurrentQueue<PacketContext> _rawPackets = new ConcurrentQueue<PacketContext>();
         private IEnumerable<IPacketHandler> _packetHandlers;
         private Task _resolvingTask;
         private IBytesPacketReceiver _receiver;
@@ -54,15 +55,15 @@ namespace Bob.FilesTransfert.ComApi
             this._resolvingTask = Task.Run(() => this.ResolvePackets());
         }
 
-        private void OnReceivedData(object obj, Byte[] packet)
+        private void OnReceivedData(object obj, PacketContext context)
         {
             //if (this._packetHandlers.Count() == 2)
             //{
             //    Debug.WriteLine($"[Receiving] {this._rawPackets.Count}");
             //}
 
-            this._rawPackets.Enqueue(packet);
-            Debug.WriteLine($@"[Dispatching:{packet.Length}] [header:{packet[0]}] [data:{Encoding.ASCII.GetString(new Byte[1] { packet[1] })}]");
+            this._rawPackets.Enqueue(context);
+            Debug.WriteLine($@"[Dispatching:{context.CurrentPacket.Length}] [header:{context.CurrentPacket[0]}] [data:{Encoding.ASCII.GetString(new Byte[1] { context.CurrentPacket[1] })}]");
 
 
             //if (!this.SetActiveIfnot())
@@ -74,21 +75,12 @@ namespace Bob.FilesTransfert.ComApi
         private void ResolvePackets()
         {
             var any = false;
-            Byte[] packet = null;
+            PacketContext context = null;
 
             while(true)
             {
                 //check if packets are available
                 any = this._rawPackets.Any();
-                //if (any)
-                //{
-                //    Debug.WriteLine("[Detecting]");
-                //}
-
-                if (this._packetHandlers.Count() == 2)
-                {
-                    Debug.WriteLine($"[Alive] {this._rawPackets.Count}");
-                }
 
                 if (any)
                 {
@@ -96,7 +88,7 @@ namespace Bob.FilesTransfert.ComApi
                     var succeed = false;
                     do
                     {
-                        succeed = this._rawPackets.TryDequeue(out packet);
+                        succeed = this._rawPackets.TryDequeue(out context);
 
                         //if (this._packetHandlers.Count() == 2)
                         //{
@@ -106,11 +98,11 @@ namespace Bob.FilesTransfert.ComApi
 
                     } while (!succeed);
 
-                    Debug.WriteLine($@"[Handling:{packet.Length}] [header:{packet[0]}] [data:{Encoding.ASCII.GetString(new Byte[1] { packet[1] })}]");
+                    Debug.WriteLine($@"[Handling:{context.CurrentPacket.Length}] [header:{context.CurrentPacket[0]}] [data:{Encoding.ASCII.GetString(new Byte[1] { context.CurrentPacket[1] })}]");
 
                     foreach (var packetHandler in this._packetHandlers)
                     {
-                        if (packetHandler.Handle(packet))
+                        if (packetHandler.Handle(context))
                         {
                             continue;
                         }

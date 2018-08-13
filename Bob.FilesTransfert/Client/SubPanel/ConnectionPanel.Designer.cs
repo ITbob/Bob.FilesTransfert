@@ -39,7 +39,6 @@
             this.serverPortTextbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.receiveClientPortTextBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +62,6 @@
             this.tableLayoutPanel1.Controls.Add(this.serverPortTextbox, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.receiveClientPortTextBox, 4, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -170,16 +168,6 @@
             this.label4.Text = "Server port (R)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // receiveClientPortTextBox
-            // 
-            this.receiveClientPortTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.receiveClientPortTextBox.Location = new System.Drawing.Point(427, 6);
-            this.receiveClientPortTextBox.Name = "receiveClientPortTextBox";
-            this.receiveClientPortTextBox.Size = new System.Drawing.Size(93, 25);
-            this.receiveClientPortTextBox.TabIndex = 10;
-            this.receiveClientPortTextBox.Text = "5000";
-            this.receiveClientPortTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // ConnectionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -206,6 +194,5 @@
         public System.Windows.Forms.TextBox serverPortTextbox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TextBox receiveClientPortTextBox;
     }
 }

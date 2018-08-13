@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TestResults>
-  <Summary TestExecutionStart="2018-08-11T10:42:11.296948Z" TestExecutionEnd="2018-08-11T10:42:11.296948Z" TestExecutionTime="PT0S">
-    <Features Count="0" />
-    <Scenarios Count="0" Passed="0" Bypassed="0" Failed="0" Ignored="0" />
-    <Steps Count="0" Passed="0" Bypassed="0" Failed="0" Ignored="0" NotRun="0" />
+  <Summary TestExecutionStart="2018-08-13T19:42:41.6349509Z" TestExecutionEnd="2018-08-13T19:42:42.0163608Z" TestExecutionTime="PT0.3814099S">
+    <Features Count="1" />
+    <Scenarios Count="1" Passed="1" Bypassed="0" Failed="0" Ignored="0" />
+    <Steps Count="6" Passed="6" Bypassed="0" Failed="0" Ignored="0" NotRun="0" />
   </Summary>
+  <Feature Name="TcpCommunicants Features">
+    <Description>Send messages between two communicants 'receiver' and 'sender'</Description>
+    <Scenario Status="Passed" Name="Handle communication with filename packet" ExecutionStart="2018-08-13T19:42:41.6349509Z" ExecutionTime="PT0.3814099S">
+      <Label Name="send/receive filename packet " />
+      <Step Status="Passed" Number="1" Name="GIVEN Set couple [senderPort: &quot;8177&quot;] [receiverPort: &quot;8178&quot;] [func: &quot;System.Action`2[System.Object,Bob.FilesTransfert.ComApi.Communicants.TCP.PacketContext]&quot;]" ExecutionStart="2018-08-13T19:42:41.657889Z" ExecutionTime="PT0.0090583S">
+        <StepName StepType="GIVEN" Format="Set couple [senderPort: &quot;{0}&quot;] [receiverPort: &quot;{1}&quot;] [func: &quot;{2}&quot;]">
+          <Parameter IsEvaluated="true">8177</Parameter>
+          <Parameter IsEvaluated="true">8178</Parameter>
+          <Parameter IsEvaluated="true">System.Action`2[System.Object,Bob.FilesTransfert.ComApi.Communicants.TCP.PacketContext]</Parameter>
+        </StepName>
+      </Step>
+      <Step Status="Passed" Number="2" Name="THEN Send filename packet" ExecutionStart="2018-08-13T19:42:41.6728492Z" ExecutionTime="PT0.0003942S">
+        <StepName StepType="THEN" Format="Send filename packet" />
+      </Step>
+      <Step Status="Passed" Number="3" Name="AND Sleep 200ms" ExecutionStart="2018-08-13T19:42:41.6728492Z" ExecutionTime="PT0.2005093S">
+        <StepName StepType="AND" Format="Sleep 200ms" />
+      </Step>
+      <Step Status="Passed" Number="4" Name="AND Check filename packet" ExecutionStart="2018-08-13T19:42:41.8743099Z" ExecutionTime="PT0.0007798S">
+        <StepName StepType="AND" Format="Check filename packet" />
+      </Step>
+      <Step Status="Passed" Number="5" Name="AND Close couple" ExecutionStart="2018-08-13T19:42:41.8743099Z" ExecutionTime="PT0.1413659S">
+        <StepName StepType="AND" Format="Close couple" />
+      </Step>
+      <Step Status="Passed" Number="6" Name="AND Unsubscrible [func: &quot;System.Action`2[System.Object,Bob.FilesTransfert.ComApi.Communicants.TCP.PacketContext]&quot;]" ExecutionStart="2018-08-13T19:42:42.0159314Z" ExecutionTime="PT0.0003519S">
+        <StepName StepType="AND" Format="Unsubscrible [func: &quot;{0}&quot;]">
+          <Parameter IsEvaluated="true">System.Action`2[System.Object,Bob.FilesTransfert.ComApi.Communicants.TCP.PacketContext]</Parameter>
+        </StepName>
+      </Step>
+    </Scenario>
+  </Feature>
 </TestResults>

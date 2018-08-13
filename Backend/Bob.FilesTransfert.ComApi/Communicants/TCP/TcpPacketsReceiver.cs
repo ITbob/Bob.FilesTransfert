@@ -1,4 +1,5 @@
 ﻿using Bob.FilesTransfert.ComApi.Communicants;
+using Bob.FilesTransfert.ComApi.Communicants.TCP;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,14 +17,10 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
         private TcpListener _listener;
         private IPEndPoint _info;
         private Int32 _backlog = 5;
-        public EventHandler<Byte[]> ReceivedData { get; set; }
+        public EventHandler<PacketContext> ReceivedData { get; set; }
 
-        private void OnReceivedData(Byte[] packet)
+        private void OnReceivedData(PacketContext packet)
         {
-            //if (packet[0] == 0x04)
-            //{
-            //    Debug.WriteLine($"[Invoking]");
-            //}
             this.ReceivedData?.Invoke(this, packet);
         }
 
@@ -128,7 +125,7 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
                     {
                     }
 
-                    this.OnReceivedData(packet);
+                    this.OnReceivedData(new PacketContext(packet, networkStream));
 
                     //clean packet
                     packet = new Byte[this._count];
@@ -138,6 +135,5 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
             clientSocket.Client.Close();
             clientSocket.Close();
         }
-
     }
 }

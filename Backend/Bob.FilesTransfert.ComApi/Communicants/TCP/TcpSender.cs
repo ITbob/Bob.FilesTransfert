@@ -27,6 +27,7 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
             this._socket.LingerState = new LingerOption(false,0);
             this._socket.LingerState.Enabled = false;
             this._socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            this._socket.ReceiveTimeout = 500;
         }
 
         public void Connect()
@@ -63,7 +64,7 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
 
         }
 
-        public void Send(byte[] data)
+        public void Send(IEnumerable<byte[]> packets)
         {
             if (!this._socket.IsBound)
             {
@@ -75,8 +76,47 @@ namespace Bob.FilesTransfert.ComApi.TCP.Communicants
                 throw new ApplicationException("socket is not connected");
             }
 
-            var count = this._socket.SendTo(data,0,data.Length,SocketFlags.None, this._receiverInfo);
+            foreach (var packet in packets)
+            {
+                var count = this._socket.SendTo(packet, 0, packet.Length, SocketFlags.None, this._receiverInfo);
+            }
+        }
+
+        public List<byte[]> SendWithFeedback(IEnumerable<byte[]> packets)
+        {
+            this.Send(packets);
+
+            var receivedPacket = new Byte[2];
+            var result = new List<Byte[]>();
+            var received = false;
+            do
+            {
+                var receivedCount = 0;
+                try
+                {
+                    receivedCount = this._socket.Receive(receivedPacket, SocketFlags.None);
+                    Debug.WriteLine($@"[Feedback] [header:{receivedPacket[0]}] [data:{Encoding.ASCII.GetString(new Byte[1] { receivedPacket[1] })}]");
+                }
+                catch (Exception)
+                {
+                    receivedCount = 0;
+                }
+
+                if (0 < receivedCount)
+                {
+                    received = true;
+                    result.Add(receivedPacket);
+                    receivedPacket = new Byte[2];
+                }
+                else
+                {
+                    received = false;
+                }
+
+            } while (received);
             //Debug.WriteLine($"Sent: {count} data: {Encoding.ASCII.GetString(data)}");
+
+            return result;
         }
     }
 }

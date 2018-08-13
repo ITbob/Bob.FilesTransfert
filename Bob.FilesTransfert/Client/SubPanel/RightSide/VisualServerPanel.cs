@@ -15,6 +15,9 @@ namespace Bob.Transferts.Client
         public VisualServerPanel()
         {
             InitializeComponent();
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ReadOnly = true;
         }
     }
 }

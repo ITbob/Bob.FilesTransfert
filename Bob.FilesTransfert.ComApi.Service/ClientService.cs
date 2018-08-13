@@ -11,40 +11,25 @@ using System.Net;
 using System.Net.Sockets;
 using Bob.FilesTransfert.ComApi.Handler;
 using System.Diagnostics;
+using Bob.FilesTransfert.ComApi.Sender.Directory;
 
 namespace Bob.FilesTransfert.ComApi.Service
 {
     public class ClientHandler
     {
-        private Int32 folderResquestPort = 7660;
-        private TcpPacketsReceiver _listener;
-        private PacketDispatcher _dispatcher;
-        private FolderAckHandler _askFolder;
         private TcpSender _sender;
         private FileSender _fileSender;
-        private FolderInfoSender _folderInfo;
+        private DirectoryResquestSender _directoryRequester;
 
-        public EventHandler<List<String>> ReceivedFiles;
-        private void OnReceivedFiles(object o, List<String> files)
-        {
-            this.ReceivedFiles?.Invoke(this, files);
-        }
 
-        public void Setup(IPEndPoint clientinfo, IPEndPoint serverinfo, Int32 folderRequestPort)
+        public void Setup(IPEndPoint clientinfo, IPEndPoint serverinfo)
         {
-            this.folderResquestPort = folderRequestPort;
 
             this._sender = new TcpSender(clientinfo, serverinfo);
             this._fileSender = new FileSender(this._sender);
-            this._folderInfo = new FolderInfoSender(this._sender);
-            this._listener = new TcpPacketsReceiver(new IPEndPoint(SocketHelper.GetIPAddress(),folderResquestPort), 2);
-            this._listener.Listen();
+            this._directoryRequester = new DirectoryResquestSender(this._sender);
             this._sender.Connect();
 
-            this._askFolder = new FolderAckHandler();
-            this._askFolder.ReceivedFiles = OnReceivedFiles;
-            this._dispatcher = new PacketDispatcher(this._listener,
-                new List<IPacketHandler>() { this._askFolder });
         }
 
         public void Close()
@@ -52,8 +37,6 @@ namespace Bob.FilesTransfert.ComApi.Service
             try
             {
                 this._sender.Close();
-                this._listener.Close();
-                this._askFolder.ReceivedFiles -= OnReceivedFiles;
             }
             catch (Exception e)
             {
@@ -61,9 +44,9 @@ namespace Bob.FilesTransfert.ComApi.Service
             }
         }
 
-        public void AskFolderInfo()
+        public List<String> GetServerDirectory()
         {
-            this._folderInfo.Send(new IPEndPoint(SocketHelper.GetIPAddress(), folderResquestPort));
+            return this._directoryRequester.Send();
         }
 
         public void SendFile(String path)

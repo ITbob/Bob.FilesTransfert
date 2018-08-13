@@ -11,6 +11,7 @@ namespace Bob.FilesTransfert.ComApi.Communicants
         void Connect();
         void Close();
         Boolean IsConnected();
-        void Send(Byte[] data);
+        void Send(IEnumerable<Byte[]> packets);
+        List<Byte[]> SendWithFeedback(IEnumerable<Byte[]> packets);
     }
 }
