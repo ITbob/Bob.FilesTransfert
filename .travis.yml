@@ -12,7 +12,7 @@ install:
   - nuget restore Bob.FilesTransfert.sln
   #- nuget install NUnit.Runners -Version 3.8.0 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release Bob.Travis.sln
+  - xbuild /p:Configuration=Release Bob.FilesTransfert.sln
 after_script:
   #- nunit-console Bob.Travis.Test/bin/Release/Bob.Travis.Test.dll
   #- nunit-console Bob.Travis.Integration/bin/Release/Bob.Travis.Integration.dll
